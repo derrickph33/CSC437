@@ -1,0 +1,18 @@
+body {
+    background-color: var(--color-background-page);
+    color: var(--color-text);
+}
+
+header {
+    background-color: var(--color-background-header);
+    color: var(--color-text-header);
+    padding: 20px; 
+}
+
+h1, h2, h3 {
+    color: var(--color-heading);
+}
+
+a {
+    color: var(--color-link);
+}
