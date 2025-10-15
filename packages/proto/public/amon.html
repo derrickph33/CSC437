@@ -3,25 +3,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player Profile</title>
+    <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
     <link rel="stylesheet" href="/styles/page.css" />
 </head>
 <body>
-    <h1>Amon-Ra St. Brown</h1>
-    <img src="images/amon.jpeg" style="width: 300px;">
-    
-    <h2>Basic Information</h2>
-    <p><strong>Position:</strong> Wide Receiver</p>
-    <p><strong>Jersey Number:</strong> 14</p>
-    <p><strong>Team:</strong> Detroit Lions</p>
-    
-    <h2>2025 Statistics</h2>
-    <p><strong>Games Played:</strong> 4</p>
-    <p><strong>Receptions:</strong> 27</p>
-    <p><strong>Receiving Yards:</strong> 307</p>
-    <p><strong>Receiving Touchdowns:</strong> 6</p>
-    <p><strong>Fantasy Points:</strong> 94.4</p>
+    <header>
+        <div class="header-logo">
+            <svg class="icon">
+                <use href="/icons/football.svg#icon-football" />
+            </svg>
+            <span class="app-name">Fantasy Football Hub</span>
+        </div>
+        <nav class="header-nav">
+            <a href="index.html">Home</a>
+            <a href="temp.html">Players</a>
+            <a href="temp.html">Teams</a>
+            <a href="temp.html">Rankings</a>
+        </nav>
+        <div class="header-user">
+            <span class="user-name">Guest User</span>
+        </div>
+    </header>
 
-    <p><a href="index.html">← Back to Home</a></p>
+    <div class="content-wrapper">
+        <aside class="sidebar">
+            <h3>Featured Matchups</h3>
+            <nav>
+                <a href="temp.html">Team Matchups</a>
+                <a href="temp.html">Position Matchups</a>
+                <a href="temp.html">Matchup Rankings</a>
+            </nav>
+            <h3>Featured Players</h3>
+            <nav>
+                <a href="ceedee.html">CeeDee Lamb</a>
+                <a href="puka.html">Puka Nacua</a>
+                <a href="amon.html" class="active">Amon-Ra St. Brown</a>
+            </nav>
+        </aside>
+
+        <main>
+            <h1>Amon-Ra St. Brown</h1>
+            <img src="images/amon.jpeg" style="width: 300px;">
+
+            <h2>Basic Information</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Position</span>
+                    <span class="stat-value">Wide Receiver</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Jersey Number</span>
+                    <span class="stat-value">14</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Team</span>
+                    <span class="stat-value">Detroit Lions</span>
+                </div>
+            </div>
+
+            <h2>2025 Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Games Played</span>
+                    <span class="stat-value">4</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Receptions</span>
+                    <span class="stat-value">27</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Receiving Yards</span>
+                    <span class="stat-value">307</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Receiving Touchdowns</span>
+                    <span class="stat-value">6</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Fantasy Points</span>
+                    <span class="stat-value">94.4</span>
+                </div>
+            </div>
+
+            <p><a href="index.html">← Back to Home</a></p>
+        </main>
+    </div>
 </body>
 </html>

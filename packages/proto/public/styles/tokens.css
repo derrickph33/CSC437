@@ -1,11 +1,22 @@
 :root {
     --color-background-page: black;
-    --color-background-header: #9370DB;
-    
+    --color-background-header: #4aab42;
+    --color-background-sidebar: rgb(184, 118, 42);
+
     --color-text: white;
     --color-text-header: black;
-    
+
     --color-accent: #1E3A8A;
     --color-link: var(--color-accent);
     --color-heading: white;
+
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 0.75rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.5rem;
+    --spacing-2xl: 2rem;
+
+    --grid-columns: 12;
+    --grid-gap: var(--spacing-lg);
 }
