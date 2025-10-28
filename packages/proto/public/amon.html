@@ -24,6 +24,10 @@
         <div class="header-user">
             <span class="user-name">Guest User</span>
         </div>
+        <label id="light-mode-toggle">
+            <input type="checkbox" autocomplete="off" />
+            Light mode
+        </label>
     </header>
 
     <div class="content-wrapper">
@@ -89,5 +93,27 @@
             <p><a href="index.html">← Back to Home</a></p>
         </main>
     </div>
+
+    <script type="module">
+        const body = document.body;
+        const toggleLabel = document.getElementById('light-mode-toggle');
+
+        toggleLabel.onchange = (event) => {
+            event.stopPropagation();
+            const customEvent = new CustomEvent('lightmode:toggle', {
+                bubbles: true,
+                detail: { checked: event.target.checked }
+            });
+            event.currentTarget.dispatchEvent(customEvent);
+        };
+
+        body.addEventListener('lightmode:toggle', (event) => {
+            if (event.detail.checked) {
+                body.classList.add('light-mode');
+            } else {
+                body.classList.remove('light-mode');
+            }
+        });
+    </script>
 </body>
 </html>
