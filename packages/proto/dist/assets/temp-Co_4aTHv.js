@@ -1,0 +1,1 @@
+import{d,H as t}from"./header-element-CzA7NLWL.js";d({"header-element":t});document.body.addEventListener("lightmode:toggle",e=>{e.detail.checked?document.body.classList.add("light-mode"):document.body.classList.remove("light-mode")});

@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Profile</title>
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/page.css" />
+    <script type="module">
+        import { define } from "@calpoly/mustang";
+        import { StatItemElement } from "/src/stat-item.ts";
+        import { HeaderElement } from "/src/header-element.ts";
+        import { PlayerCardElement } from "/src/player-card.ts";
+        define({
+            "stat-item": StatItemElement,
+            "header-element": HeaderElement,
+            "player-card": PlayerCardElement
+        });
+    </script>
+</head>
+<body>
+    <header-element></header-element>
+
+    <div class="content-wrapper">
+        <aside class="sidebar">
+            <h3>Featured Matchups</h3>
+            <nav>
+                <a href="temp.html">Team Matchups</a>
+                <a href="temp.html">Position Matchups</a>
+                <a href="temp.html">Matchup Rankings</a>
+            </nav>
+
+            <h3>Featured Players</h3>
+            <nav>
+                <a href="ceedee.html" class="active">CeeDee Lamb</a>
+                <a href="puka.html">Puka Nacua</a>
+                <a href="amon.html">Amon-Ra St. Brown</a>
+            </nav>
+        </aside>
+
+        <main>
+            <player-card
+                name="CeeDee Lamb"
+                image="images/ceedee.jpeg"
+                position="Wide Receiver"
+                jersey-number="88"
+                team="Dallas Cowboys"
+                games-played="2"
+                receptions="16"
+                receiving-yards="222"
+                receiving-touchdowns="0"
+                fantasy-points="38.2">
+            </player-card>
+        </main>
+    </div>
+
+    <script type="module">
+        document.body.addEventListener('lightmode:toggle', (event) => {
+            if (event.detail.checked) {
+                document.body.classList.add('light-mode');
+            } else {
+                document.body.classList.remove('light-mode');
+            }
+        });
+    </script>
+</body>
+</html>
