@@ -1,7 +1,7 @@
-import{i as v,x as g,r as d,a as h,n as s}from"./header-element-CzA7NLWL.js";const o=class o extends v{render(){return g`
+import{i as c,x as p,r as v,a as g,n as i}from"./header-element-CzA7NLWL.js";import{r as b}from"./state-DmKpXURm.js";const m=class m extends c{render(){return p`
       <span class="stat-label"><slot name="label"></slot></span>
       <span class="stat-value"><slot name="value"></slot></span>
-    `}};o.styles=[d.styles,h`
+    `}};m.styles=[v.styles,g`
       :host {
         display: flex;
         flex-direction: column;
@@ -19,7 +19,7 @@ import{i as v,x as g,r as d,a as h,n as s}from"./header-element-CzA7NLWL.js";con
         font-weight: 700;
         color: var(--color-heading);
       }
-    `];let c=o;var u=Object.defineProperty,a=(r,l,p,b)=>{for(var e=void 0,i=r.length-1,m;i>=0;i--)(m=r[i])&&(e=m(l,p,e)||e);return e&&u(l,p,e),e};const n=class n extends v{render(){return g`
+    `];let h=m;var x=Object.defineProperty,o=(n,t,e,u)=>{for(var a=void 0,r=n.length-1,l;r>=0;r--)(l=n[r])&&(a=l(t,e,a)||a);return a&&x(t,e,a),a};const d=class d extends c{render(){return p`
       <h1>${this.name}</h1>
       <img src="${this.image}" style="width: 300px;">
 
@@ -64,7 +64,7 @@ import{i as v,x as g,r as d,a as h,n as s}from"./header-element-CzA7NLWL.js";con
       </div>
 
       <p><a href="index.html">← Back to Home</a></p>
-    `}};n.styles=[d.styles,h`
+    `}};d.styles=[v.styles,g`
       :host {
         display: block;
       }
@@ -109,4 +109,17 @@ import{i as v,x as g,r as d,a as h,n as s}from"./header-element-CzA7NLWL.js";con
       a:hover {
         text-decoration: underline;
       }
-    `];let t=n;a([s()],t.prototype,"name");a([s()],t.prototype,"image");a([s()],t.prototype,"position");a([s({attribute:"jersey-number"})],t.prototype,"jerseyNumber");a([s()],t.prototype,"team");a([s({attribute:"games-played"})],t.prototype,"gamesPlayed");a([s()],t.prototype,"receptions");a([s({attribute:"receiving-yards"})],t.prototype,"receivingYards");a([s({attribute:"receiving-touchdowns"})],t.prototype,"receivingTouchdowns");a([s({attribute:"fantasy-points"})],t.prototype,"fantasyPoints");export{t as P,c as S};
+    `];let s=d;o([i()],s.prototype,"name");o([i()],s.prototype,"image");o([i()],s.prototype,"position");o([i({attribute:"jersey-number"})],s.prototype,"jerseyNumber");o([i()],s.prototype,"team");o([i({attribute:"games-played"})],s.prototype,"gamesPlayed");o([i()],s.prototype,"receptions");o([i({attribute:"receiving-yards"})],s.prototype,"receivingYards");o([i({attribute:"receiving-touchdowns"})],s.prototype,"receivingTouchdowns");o([i({attribute:"fantasy-points"})],s.prototype,"fantasyPoints");var $=Object.defineProperty,y=(n,t,e,u)=>{for(var a=void 0,r=n.length-1,l;r>=0;r--)(l=n[r])&&(a=l(t,e,a)||a);return a&&$(t,e,a),a};class f extends c{connectedCallback(){super.connectedCallback(),this.src&&this.hydrate(this.src)}hydrate(t){fetch(t).then(e=>e.json()).then(e=>{e&&(this.playerData=e)}).catch(e=>{console.error("Failed to fetch player data:",e)})}render(){const{playerData:t}=this;return t?p`
+      <player-card
+        name=${t.name}
+        image=${t.image}
+        position=${t.position}
+        jersey-number=${t.jerseyNumber}
+        team=${t.team}
+        games-played=${t.gamesPlayed}
+        receptions=${t.receptions}
+        receiving-yards=${t.receivingYards}
+        receiving-touchdowns=${t.receivingTouchdowns}
+        fantasy-points=${t.fantasyPoints}
+      ></player-card>
+    `:p``}}y([i()],f.prototype,"src");y([b()],f.prototype,"playerData");export{f as P,h as S,s as a};
