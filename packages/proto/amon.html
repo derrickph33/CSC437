@@ -11,10 +11,12 @@
         import { StatItemElement } from "/src/stat-item.ts";
         import { HeaderElement } from "/src/header-element.ts";
         import { PlayerCardElement } from "/src/player-card.ts";
+        import { PlayerProfileElement } from "/src/player-profile-element.ts";
         define({
             "stat-item": StatItemElement,
             "header-element": HeaderElement,
-            "player-card": PlayerCardElement
+            "player-card": PlayerCardElement,
+            "player-profile": PlayerProfileElement
         });
     </script>
 </head>
@@ -39,18 +41,7 @@
         </aside>
 
         <main>
-            <player-card
-                name="Amon-Ra St. Brown"
-                image="images/amon.jpeg"
-                position="Wide Receiver"
-                jersey-number="14"
-                team="Detroit Lions"
-                games-played="4"
-                receptions="27"
-                receiving-yards="307"
-                receiving-touchdowns="6"
-                fantasy-points="94.4">
-            </player-card>
+            <player-profile src="/data/amon.json"></player-profile>
         </main>
     </div>
 

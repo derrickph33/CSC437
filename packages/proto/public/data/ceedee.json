@@ -1,0 +1,12 @@
+{
+  "name": "CeeDee Lamb",
+  "image": "images/ceedee.jpeg",
+  "position": "Wide Receiver",
+  "jerseyNumber": "88",
+  "team": "Dallas Cowboys",
+  "gamesPlayed": "2",
+  "receptions": "16",
+  "receivingYards": "222",
+  "receivingTouchdowns": "0",
+  "fantasyPoints": "38.2"
+}

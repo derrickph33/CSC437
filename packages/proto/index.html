@@ -12,10 +12,12 @@
     <script type="module">
         import { define } from "@calpoly/mustang";
         import { PlayerItemElement } from "/src/player-item.ts";
+        import { PlayerListElement } from "/src/player-list-element.ts";
         import { HeaderElement } from "/src/header-element.ts";
 
         define({
             "player-item": PlayerItemElement,
+            "player-list": PlayerListElement,
             "header-element": HeaderElement
         });
     </script>
@@ -45,9 +47,7 @@
 
             <h1>Top Players</h1>
             <ul class="player-list">
-                <player-item href="ceedee.html" name="CeeDee Lamb" team="Dallas Cowboys"></player-item>
-                <player-item href="puka.html" name="Puka Nacua" team="Los Angeles Rams"></player-item>
-                <player-item href="amon.html" name="Amon-Ra St. Brown" team="Detroit Lions"></player-item>
+                <player-list src="/data/featured-players.json"></player-list>
             </ul>
         </main>
     </div>

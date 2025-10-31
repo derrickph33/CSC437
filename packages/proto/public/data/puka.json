@@ -1,0 +1,12 @@
+{
+  "name": "Puka Nacua",
+  "image": "images/puka.png",
+  "position": "Wide Receiver",
+  "jerseyNumber": "12",
+  "team": "Los Angeles Rams",
+  "gamesPlayed": "4",
+  "receptions": "42",
+  "receivingYards": "503",
+  "receivingTouchdowns": "1",
+  "fantasyPoints": "109.5"
+}
