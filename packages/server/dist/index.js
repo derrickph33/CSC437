@@ -23,23 +23,13 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var import_express = __toESM(require("express"));
 var import_mongo = require("./services/mongo");
-var import_player_svc = __toESM(require("./services/player-svc"));
+var import_players = __toESM(require("./routes/players"));
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
-app.get("/players", (req, res) => {
-  import_player_svc.default.index().then((data) => {
-    res.set("Content-Type", "application/json").send(JSON.stringify(data));
-  });
-});
-app.get("/players/:name", (req, res) => {
-  const { name } = req.params;
-  import_player_svc.default.get(name).then((data) => {
-    if (data) res.set("Content-Type", "application/json").send(JSON.stringify(data));
-    else res.status(404).send();
-  });
-});
+app.use(import_express.default.json());
+app.use("/api/players", import_players.default);
 (0, import_mongo.connect)("FFL").then(() => {
   app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

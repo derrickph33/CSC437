@@ -49,4 +49,23 @@ function get(name) {
     throw `${name} Not Found`;
   });
 }
-var player_svc_default = { index, get };
+function create(json) {
+  const t = new PlayerModel(json);
+  return t.save();
+}
+function update(name, player) {
+  return PlayerModel.findOneAndUpdate({ name }, player, {
+    new: true
+  }).then((updated) => {
+    if (!updated) throw `${name} not updated`;
+    else return updated;
+  });
+}
+function remove(name) {
+  return PlayerModel.findOneAndDelete({ name }).then(
+    (deleted) => {
+      if (!deleted) throw `${name} not deleted`;
+    }
+  );
+}
+var player_svc_default = { index, get, create, update, remove };

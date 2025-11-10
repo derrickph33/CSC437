@@ -34,4 +34,29 @@ function get(name: String): Promise<Player> {
     });
 }
 
-export default { index, get };
+function create(json: Player): Promise<Player> {
+  const t = new PlayerModel(json);
+  return t.save();
+}
+
+function update(
+  name: String,
+  player: Player
+): Promise<Player> {
+  return PlayerModel.findOneAndUpdate({ name }, player, {
+    new: true
+  }).then((updated) => {
+    if (!updated) throw `${name} not updated`;
+    else return updated as Player;
+  });
+}
+
+function remove(name: String): Promise<void> {
+  return PlayerModel.findOneAndDelete({ name }).then(
+    (deleted) => {
+      if (!deleted) throw `${name} not deleted`;
+    }
+  );
+}
+
+export default { index, get, create, update, remove };
