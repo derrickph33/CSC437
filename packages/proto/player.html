@@ -2,23 +2,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fantasy Football Player Homepage</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <title>Player Profile</title>
     <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
     <link rel="stylesheet" href="/styles/page.css" />
     <script type="module">
         import { define, Auth } from "@calpoly/mustang";
-        import { PlayerItemElement } from "/src/player-item.ts";
-        import { PlayerListElement } from "/src/player-list-element.ts";
+        import { StatItemElement } from "/src/stat-item.ts";
         import { HeaderElement } from "/src/header-element.ts";
-
+        import { PlayerCardElement } from "/src/player-card.ts";
+        import { PlayerProfileElement } from "/src/player-profile-element.ts";
         define({
-            "player-item": PlayerItemElement,
-            "player-list": PlayerListElement,
+            "stat-item": StatItemElement,
             "header-element": HeaderElement,
+            "player-card": PlayerCardElement,
+            "player-profile": PlayerProfileElement,
             "mu-auth": Auth.Provider
         });
     </script>
@@ -36,25 +34,26 @@
                 <a href="temp.html">Matchup Rankings</a>
             </nav>
 
-            <h3>Featured Players</h3>
+            <h3>Navigation</h3>
             <nav>
-                <a href="player.html?name=CeeDee%20Lamb">CeeDee Lamb</a>
-                <a href="player.html?name=Puka%20Nacua">Puka Nacua</a>
-                <a href="player.html?name=Amon-Ra%20St.%20Brown">Amon-Ra St. Brown</a>
+                <a href="index.html">Home</a>
             </nav>
         </aside>
 
         <main>
-            <img src="images/fantasy.png" style="width: 600px; margin-bottom: 2rem;">
-
-            <h1>Top Players</h1>
-            <ul class="player-list">
-                <player-list src="/api/players"></player-list>
-            </ul>
+            <player-profile id="player-profile"></player-profile>
         </main>
     </div>
 
     <script type="module">
+        const urlParams = new URLSearchParams(window.location.search);
+        const playerName = urlParams.get('name');
+
+        if (playerName) {
+            const playerProfile = document.getElementById('player-profile');
+            playerProfile.setAttribute('src', `/api/players/${encodeURIComponent(playerName)}`);
+        }
+
         document.body.addEventListener('lightmode:toggle', (event) => {
             if (event.detail.checked) {
                 document.body.classList.add('light-mode');

@@ -1,5 +1,6 @@
 import { LitElement, html } from "lit";
 import { property, state } from "lit/decorators.js";
+import { Observer, Auth } from "@calpoly/mustang";
 
 interface PlayerCardData {
   name: string;
@@ -21,13 +22,29 @@ export class PlayerProfileElement extends LitElement {
   @state()
   playerData?: PlayerCardData;
 
+  _authObserver = new Observer<Auth.Model>(this, "ffl:auth");
+  _user?: Auth.User;
+
   connectedCallback() {
     super.connectedCallback();
-    if (this.src) this.hydrate(this.src);
+    this._authObserver.observe((auth: Auth.Model) => {
+      this._user = auth.user;
+      // Fetch data after auth state is available
+      if (this.src) this.hydrate(this.src);
+    });
+  }
+
+  get authorization() {
+    return (
+      this._user?.authenticated && {
+        Authorization:
+          `Bearer ${(this._user as Auth.AuthenticatedUser).token}`
+      }
+    );
   }
 
   hydrate(src: string) {
-    fetch(src)
+    fetch(src, { headers: this.authorization || {} })
       .then((res) => res.json())
       .then((json: object) => {
         if (json) {

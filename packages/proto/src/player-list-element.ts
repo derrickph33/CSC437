@@ -1,5 +1,19 @@
 import { LitElement, html } from "lit";
 import { property, state } from "lit/decorators.js";
+import { Observer, Auth } from "@calpoly/mustang";
+
+interface APIPlayer {
+  name: string;
+  image: string;
+  position: string;
+  jerseyNumber: string;
+  team: string;
+  gamesPlayed: string;
+  receptions: string;
+  receivingYards: string;
+  receivingTouchdowns: string;
+  fantasyPoints: string;
+}
 
 interface Player {
   href: string;
@@ -14,17 +28,37 @@ export class PlayerListElement extends LitElement {
   @state()
   players: Array<Player> = [];
 
+  _authObserver = new Observer<Auth.Model>(this, "ffl:auth");
+  _user?: Auth.User;
+
   connectedCallback() {
     super.connectedCallback();
-    if (this.src) this.hydrate(this.src);
+    this._authObserver.observe((auth: Auth.Model) => {
+      this._user = auth.user;
+      if (this.src) this.hydrate(this.src);
+    });
+  }
+
+  get authorization() {
+    return (
+      this._user?.authenticated && {
+        Authorization:
+          `Bearer ${(this._user as Auth.AuthenticatedUser).token}`
+      }
+    );
   }
 
   hydrate(src: string) {
-    fetch(src)
+    fetch(src, { headers: this.authorization || {} })
       .then((res) => res.json())
       .then((json: object) => {
         if (json) {
-          this.players = json as Array<Player>;
+          const apiPlayers = json as Array<APIPlayer>;
+          this.players = apiPlayers.map(player => ({
+            href: `player.html?name=${encodeURIComponent(player.name)}`,
+            name: player.name,
+            team: player.team
+          }));
         }
       })
       .catch((error) => {

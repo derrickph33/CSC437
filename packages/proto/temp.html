@@ -10,14 +10,16 @@
     <link rel="stylesheet" href="/styles/tokens.css" />
     <link rel="stylesheet" href="/styles/page.css" />
     <script type="module">
-        import { define } from "@calpoly/mustang";
+        import { define, Auth } from "@calpoly/mustang";
         import { HeaderElement } from "/src/header-element.ts";
         define({
-            "header-element": HeaderElement
+            "header-element": HeaderElement,
+            "mu-auth": Auth.Provider
         });
     </script>
 </head>
 <body>
+  <mu-auth provides="ffl:auth">
     <header-element></header-element>
 
     <div class="content-wrapper">
@@ -31,9 +33,9 @@
 
             <h3>Featured Players</h3>
             <nav>
-                <a href="ceedee.html">CeeDee Lamb</a>
-                <a href="puka.html">Puka Nacua</a>
-                <a href="amon.html">Amon-Ra St. Brown</a>
+                <a href="player.html?name=CeeDee%20Lamb">CeeDee Lamb</a>
+                <a href="player.html?name=Puka%20Nacua">Puka Nacua</a>
+                <a href="player.html?name=Amon-Ra%20St.%20Brown">Amon-Ra St. Brown</a>
             </nav>
         </aside>
 
@@ -51,5 +53,6 @@
             }
         });
     </script>
+  </mu-auth>
 </body>
 </html>

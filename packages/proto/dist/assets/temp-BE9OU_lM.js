@@ -1,0 +1,1 @@
+import{d,c as t,H as o}from"./header-element-BNX6fcYA.js";d({"header-element":o,"mu-auth":t.Provider});document.body.addEventListener("lightmode:toggle",e=>{e.detail.checked?document.body.classList.add("light-mode"):document.body.classList.remove("light-mode")});

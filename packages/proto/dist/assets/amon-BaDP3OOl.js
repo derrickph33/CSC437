@@ -1,0 +1,1 @@
+import{d as t,H as a}from"./header-element-BNX6fcYA.js";import{P as d,a as l,S as m}from"./player-profile-element-BXxYi8gm.js";t({"stat-item":m,"header-element":a,"player-card":l,"player-profile":d});document.body.addEventListener("lightmode:toggle",e=>{e.detail.checked?document.body.classList.add("light-mode"):document.body.classList.remove("light-mode")});

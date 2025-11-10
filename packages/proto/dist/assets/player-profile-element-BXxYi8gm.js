@@ -1,7 +1,7 @@
-import{i as c,x as p,r as v,a as g,n as i}from"./header-element-CzA7NLWL.js";import{r as b}from"./state-DmKpXURm.js";const m=class m extends c{render(){return p`
+import{i as c,x as p,r as v,a as u,n as i,b,O as x}from"./header-element-BNX6fcYA.js";const h=class h extends c{render(){return p`
       <span class="stat-label"><slot name="label"></slot></span>
       <span class="stat-value"><slot name="value"></slot></span>
-    `}};m.styles=[v.styles,g`
+    `}};h.styles=[v.styles,u`
       :host {
         display: flex;
         flex-direction: column;
@@ -19,7 +19,7 @@ import{i as c,x as p,r as v,a as g,n as i}from"./header-element-CzA7NLWL.js";imp
         font-weight: 700;
         color: var(--color-heading);
       }
-    `];let h=m;var x=Object.defineProperty,o=(n,t,e,u)=>{for(var a=void 0,r=n.length-1,l;r>=0;r--)(l=n[r])&&(a=l(t,e,a)||a);return a&&x(t,e,a),a};const d=class d extends c{render(){return p`
+    `];let m=h;var $=Object.defineProperty,r=(n,t,a,f)=>{for(var e=void 0,o=n.length-1,l;o>=0;o--)(l=n[o])&&(e=l(t,a,e)||e);return e&&$(t,a,e),e};const d=class d extends c{render(){return p`
       <h1>${this.name}</h1>
       <img src="${this.image}" style="width: 300px;">
 
@@ -64,7 +64,7 @@ import{i as c,x as p,r as v,a as g,n as i}from"./header-element-CzA7NLWL.js";imp
       </div>
 
       <p><a href="index.html">← Back to Home</a></p>
-    `}};d.styles=[v.styles,g`
+    `}};d.styles=[v.styles,u`
       :host {
         display: block;
       }
@@ -109,7 +109,7 @@ import{i as c,x as p,r as v,a as g,n as i}from"./header-element-CzA7NLWL.js";imp
       a:hover {
         text-decoration: underline;
       }
-    `];let s=d;o([i()],s.prototype,"name");o([i()],s.prototype,"image");o([i()],s.prototype,"position");o([i({attribute:"jersey-number"})],s.prototype,"jerseyNumber");o([i()],s.prototype,"team");o([i({attribute:"games-played"})],s.prototype,"gamesPlayed");o([i()],s.prototype,"receptions");o([i({attribute:"receiving-yards"})],s.prototype,"receivingYards");o([i({attribute:"receiving-touchdowns"})],s.prototype,"receivingTouchdowns");o([i({attribute:"fantasy-points"})],s.prototype,"fantasyPoints");var $=Object.defineProperty,y=(n,t,e,u)=>{for(var a=void 0,r=n.length-1,l;r>=0;r--)(l=n[r])&&(a=l(t,e,a)||a);return a&&$(t,e,a),a};class f extends c{connectedCallback(){super.connectedCallback(),this.src&&this.hydrate(this.src)}hydrate(t){fetch(t).then(e=>e.json()).then(e=>{e&&(this.playerData=e)}).catch(e=>{console.error("Failed to fetch player data:",e)})}render(){const{playerData:t}=this;return t?p`
+    `];let s=d;r([i()],s.prototype,"name");r([i()],s.prototype,"image");r([i()],s.prototype,"position");r([i({attribute:"jersey-number"})],s.prototype,"jerseyNumber");r([i()],s.prototype,"team");r([i({attribute:"games-played"})],s.prototype,"gamesPlayed");r([i()],s.prototype,"receptions");r([i({attribute:"receiving-yards"})],s.prototype,"receivingYards");r([i({attribute:"receiving-touchdowns"})],s.prototype,"receivingTouchdowns");r([i({attribute:"fantasy-points"})],s.prototype,"fantasyPoints");var w=Object.defineProperty,g=(n,t,a,f)=>{for(var e=void 0,o=n.length-1,l;o>=0;o--)(l=n[o])&&(e=l(t,a,e)||e);return e&&w(t,a,e),e};class y extends c{constructor(){super(...arguments),this._authObserver=new x(this,"ffl:auth")}connectedCallback(){super.connectedCallback(),this._authObserver.observe(t=>{this._user=t.user,this.src&&this.hydrate(this.src)})}get authorization(){return this._user?.authenticated&&{Authorization:`Bearer ${this._user.token}`}}hydrate(t){fetch(t,{headers:this.authorization||{}}).then(a=>a.json()).then(a=>{a&&(this.playerData=a)}).catch(a=>{console.error("Failed to fetch player data:",a)})}render(){const{playerData:t}=this;return t?p`
       <player-card
         name=${t.name}
         image=${t.image}
@@ -122,4 +122,4 @@ import{i as c,x as p,r as v,a as g,n as i}from"./header-element-CzA7NLWL.js";imp
         receiving-touchdowns=${t.receivingTouchdowns}
         fantasy-points=${t.fantasyPoints}
       ></player-card>
-    `:p``}}y([i()],f.prototype,"src");y([b()],f.prototype,"playerData");export{f as P,h as S,s as a};
+    `:p``}}g([i()],y.prototype,"src");g([b()],y.prototype,"playerData");export{y as P,m as S,s as a};

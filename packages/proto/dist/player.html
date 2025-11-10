@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
     <link rel="stylesheet" href="/styles/page.css" />
-  <script type="module" crossorigin src="/assets/puka-BaDP3OOl.js"></script>
+  <script type="module" crossorigin src="/assets/player-CybMICAv.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/header-element-BNX6fcYA.js">
   <link rel="modulepreload" crossorigin href="/assets/player-profile-element-BXxYi8gm.js">
 </head>
 <body>
+  <mu-auth provides="ffl:auth">
     <header-element></header-element>
 
     <div class="content-wrapper">
@@ -22,18 +23,17 @@
                 <a href="temp.html">Matchup Rankings</a>
             </nav>
 
-            <h3>Featured Players</h3>
+            <h3>Navigation</h3>
             <nav>
-                <a href="ceedee.html">CeeDee Lamb</a>
-                <a href="puka.html" class="active">Puka Nacua</a>
-                <a href="amon.html">Amon-Ra St. Brown</a>
+                <a href="index.html">Home</a>
             </nav>
         </aside>
 
         <main>
-            <player-profile src="/data/puka.json"></player-profile>
+            <player-profile id="player-profile"></player-profile>
         </main>
     </div>
 
+  </mu-auth>
 </body>
 </html>
