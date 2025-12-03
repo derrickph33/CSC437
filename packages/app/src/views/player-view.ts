@@ -1,4 +1,4 @@
-import { View } from "@calpoly/mustang";
+import { View, History } from "@calpoly/mustang";
 import { html, css } from "lit";
 import { property } from "lit/decorators.js";
 import { Player } from "server/models";
@@ -35,6 +35,11 @@ export class PlayerViewElement extends View<Model, Msg> {
     }
   }
 
+  handleNavigate(event: MouseEvent, href: string) {
+    event.preventDefault();
+    History.dispatch(this, "history/navigate", { href });
+  }
+
   render() {
     const { player } = this;
 
@@ -54,11 +59,14 @@ export class PlayerViewElement extends View<Model, Msg> {
 
           <h3>Navigation</h3>
           <nav>
-            <a href="/app">Home</a>
+            <a href="/app" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app")}>Home</a>
           </nav>
         </aside>
 
         <main>
+          <div class="player-actions">
+            <a href="/app/player/${player.name}/edit" class="edit-button" @click=${(e: MouseEvent) => this.handleNavigate(e, `/app/player/${player.name}/edit`)}>Edit Player</a>
+          </div>
           <player-card
             name=${player.name}
             image=${player.image}
@@ -132,6 +140,25 @@ export class PlayerViewElement extends View<Model, Msg> {
       grid-column: span 10;
       padding: 1.5rem;
       overflow-y: auto;
+    }
+
+    .player-actions {
+      margin-bottom: 1.5rem;
+    }
+
+    .edit-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--color-accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .edit-button:hover {
+      opacity: 0.9;
     }
   `;
 }

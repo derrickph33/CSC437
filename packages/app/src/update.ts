@@ -8,7 +8,7 @@ export default function update(
   model: Model,
   user: Auth.User
 ): Model | ThenUpdate<Model, Msg> {
-  const [type, payload] = message;
+  const [type, payload, callbacks] = message;
   switch (type) {
     case "player/request": {
       const { name } = payload;
@@ -27,8 +27,8 @@ export default function update(
       const { name } = payload;
       return [
         model,
-        savePlayer(payload, user)
-          .then((savedPlayer) => ["player/load", { name, player: savedPlayer }])
+        savePlayer(payload, user, callbacks || {})
+          .then((player) => ["player/load", { name, player }])
       ];
     }
     case "players/request": {
@@ -70,7 +70,11 @@ function requestPlayer(
 
 function savePlayer(
   payload: { name: string; player: Player },
-  user: Auth.User
+  user: Auth.User,
+  callbacks: {
+    onSuccess?: () => void;
+    onFailure?: (err: Error) => void;
+  }
 ): Promise<Player> {
   return fetch(`/api/players/${payload.name}`, {
     method: "PUT",
@@ -82,11 +86,22 @@ function savePlayer(
   })
     .then((response: Response) => {
       if (response.status === 200) return response.json();
-      throw `Failed to save player: ${response.status}`;
+      throw new Error(
+        `Failed to save player for ${payload.name}`
+      );
     })
     .then((json: unknown) => {
-      if (json) return json as Player;
-      throw "No JSON in response from server";
+      if (json) {
+        if (callbacks.onSuccess) callbacks.onSuccess();
+        return json as Player;
+      }
+      throw new Error(
+        `No JSON in API response`
+      );
+    })
+    .catch((err) => {
+      if (callbacks.onFailure) callbacks.onFailure(err);
+      throw err;
     });
 }
 

@@ -2,7 +2,14 @@ import { Player } from "server/models";
 
 export type Msg =
   | ["player/request", { name: string }]
-  | ["player/save", { name: string; player: Player }]
+  | [
+      "player/save",
+      { name: string; player: Player },
+      {
+        onSuccess?: () => void;
+        onFailure?: (err: Error) => void;
+      }
+    ]
   | ["players/request", {}]
   | Cmd;
 

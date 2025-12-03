@@ -16,8 +16,15 @@ import { PlayerListElement } from "./components/player-list-element";
 import { StatItemElement } from "./components/stat-item";
 import { HomeViewElement } from "./views/home-view";
 import { PlayerViewElement } from "./views/player-view";
+import { PlayerEditElement } from "./views/player-edit-view";
 
 const routes = [
+  {
+    path: "/app/player/:name/edit",
+    view: (params: Switch.Params) => html`
+      <player-edit player-name=${params.name}></player-edit>
+    `
+  },
   {
     path: "/app/player/:name",
     view: (params: Switch.Params) => html`
@@ -55,5 +62,6 @@ define({
   "player-list": PlayerListElement,
   "stat-item": StatItemElement,
   "home-view": HomeViewElement,
-  "player-view": PlayerViewElement
+  "player-view": PlayerViewElement,
+  "player-edit": PlayerEditElement
 });

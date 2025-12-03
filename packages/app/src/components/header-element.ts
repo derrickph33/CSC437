@@ -1,6 +1,6 @@
 import { html, css, LitElement } from "lit";
 import { property, state } from "lit/decorators.js";
-import { Observer, Auth, Events } from "@calpoly/mustang";
+import { Observer, Auth, Events, History } from "@calpoly/mustang";
 import reset from "../styles/reset.css.ts";
 
 export class HeaderElement extends LitElement {
@@ -31,6 +31,11 @@ export class HeaderElement extends LitElement {
     });
   }
 
+  handleNavigate(event: MouseEvent, href: string) {
+    event.preventDefault();
+    History.dispatch(this, "history/navigate", { href });
+  }
+
   override render() {
     return html`
       <header>
@@ -41,7 +46,7 @@ export class HeaderElement extends LitElement {
           <span class="app-name">Fantasy Football Land</span>
         </div>
         <nav class="header-nav">
-          <a href="/app">Home</a>
+          <a href="/app" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app")}>Home</a>
           <a href="#">Players</a>
           <a href="#">Teams</a>
           <a href="#">Rankings</a>

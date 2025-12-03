@@ -1,5 +1,6 @@
 import { html, css, LitElement } from "lit";
 import { property } from "lit/decorators.js";
+import { History } from "@calpoly/mustang";
 import reset from "../styles/reset.css.ts";
 
 export class PlayerItemElement extends LitElement {
@@ -12,12 +13,19 @@ export class PlayerItemElement extends LitElement {
   @property()
   team?: string;
 
+  handleClick(event: MouseEvent) {
+    event.preventDefault();
+    if (this.href) {
+      History.dispatch(this, "history/navigate", { href: this.href });
+    }
+  }
+
   override render() {
     return html`
       <svg class="icon">
         <use href="/icons/football.svg#icon-player" />
       </svg>
-      <a href="${this.href}">${this.name}</a>
+      <a href="${this.href}" @click=${this.handleClick}>${this.name}</a>
       <span class="separator"> - </span>
       <span class="team">${this.team}</span>
     `;
