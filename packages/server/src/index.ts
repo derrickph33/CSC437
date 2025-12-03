@@ -10,11 +10,12 @@ const app = express();
 const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
 
-app.use(express.static(staticDir));
 app.use(express.json());
 
 app.use("/api/players", authenticateUser, players);
 app.use("/auth", auth);
+
+app.use(express.static(staticDir));
 
 app.use("/app", (req: Request, res: Response) => {
   const indexHtml = path.resolve(staticDir, "index.html");
