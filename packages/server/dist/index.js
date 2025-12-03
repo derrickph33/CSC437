@@ -30,10 +30,10 @@ var import_auth = __toESM(require("./routes/auth"));
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
-app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
 app.use("/api/players", import_auth.authenticateUser, import_players.default);
 app.use("/auth", import_auth.default);
+app.use(import_express.default.static(staticDir));
 app.use("/app", (req, res) => {
   const indexHtml = import_path.default.resolve(staticDir, "index.html");
   import_promises.default.readFile(indexHtml, { encoding: "utf8" }).then(
