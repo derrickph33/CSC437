@@ -2,9 +2,13 @@ import {
   Auth,
   define,
   History,
+  Store,
   Switch
 } from "@calpoly/mustang";
 import { html } from "lit";
+import { Msg } from "./messages";
+import { Model, init } from "./model";
+import update from "./update";
 import { HeaderElement } from "./components/header-element";
 import { PlayerCardElement } from "./components/player-card";
 import { PlayerItemElement } from "./components/player-item";
@@ -38,6 +42,11 @@ define({
   "mu-switch": class AppSwitch extends Switch.Element {
     constructor() {
       super(routes, "ffl:history", "ffl:auth");
+    }
+  },
+  "mu-store": class AppStore extends Store.Provider<Model, Msg> {
+    constructor() {
+      super(update, init, "ffl:auth");
     }
   },
   "header-element": HeaderElement,

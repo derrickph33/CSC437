@@ -1,75 +1,40 @@
-import { LitElement, html } from "lit";
-import { property, state } from "lit/decorators.js";
-import { Observer, Auth } from "@calpoly/mustang";
+import { View } from "@calpoly/mustang";
+import { html } from "lit";
+import { property } from "lit/decorators.js";
+import { Msg } from "../messages";
+import { Model } from "../model";
 
-interface APIPlayer {
-  name: string;
-  image: string;
-  position: string;
-  jerseyNumber: string;
-  team: string;
-  gamesPlayed: string;
-  receptions: string;
-  receivingYards: string;
-  receivingTouchdowns: string;
-  fantasyPoints: string;
-}
-
-interface Player {
+interface PlayerListItem {
   href: string;
   name: string;
   team: string;
 }
 
-export class PlayerListElement extends LitElement {
+export class PlayerListElement extends View<Model, Msg> {
   @property()
   src?: string;
 
-  @state()
-  players: Array<Player> = [];
+  get players(): PlayerListItem[] {
+    return (this.model.players || []).map(player => ({
+      href: `/app/player/${encodeURIComponent(player.name)}`,
+      name: player.name,
+      team: player.team
+    }));
+  }
 
-  _authObserver = new Observer<Auth.Model>(this, "ffl:auth");
-  _user?: Auth.User;
+  constructor() {
+    super("ffl:model");
+  }
 
   connectedCallback() {
     super.connectedCallback();
-    this._authObserver.observe((auth: Auth.Model) => {
-      this._user = auth.user;
-      if (this.src) this.hydrate(this.src);
-    });
-  }
-
-  get authorization() {
-    return (
-      this._user?.authenticated && {
-        Authorization:
-          `Bearer ${(this._user as Auth.AuthenticatedUser).token}`
-      }
-    );
-  }
-
-  hydrate(src: string) {
-    fetch(src, { headers: this.authorization || {} })
-      .then((res) => res.json())
-      .then((json: object) => {
-        if (json) {
-          const apiPlayers = json as Array<APIPlayer>;
-          this.players = apiPlayers.map(player => ({
-            href: `/app/player/${encodeURIComponent(player.name)}`,
-            name: player.name,
-            team: player.team
-          }));
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to fetch player data:", error);
-      });
+    this.dispatchMessage(["players/request", {}]);
   }
 
   render() {
     const { players } = this;
 
-    function renderPlayer(player: Player) {
+    function renderPlayer(player: PlayerListItem) {
       return html`
         <player-item
           href=${player.href}

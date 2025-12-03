@@ -1,4 +1,4 @@
-import{i as h,x as l,r as y,a as u,n as i,b as P,O as z,d as O,_ as j,h as R,c as M,H as T}from"./header-element-CeQS7Na3.js";var L=Object.defineProperty,p=(r,e,t,d)=>{for(var a=void 0,s=r.length-1,n;s>=0;s--)(n=r[s])&&(a=n(e,t,a)||a);return a&&L(e,t,a),a};const x=class x extends h{get imageSrc(){return this.image?.startsWith("/")?this.image:`/${this.image}`}render(){return l`
+import{a as u,i as g,x as p,r as f,b as m,n as o,V as N,d as _,s as j,_ as M,h as T,H as S}from"./header-element-DSbsAAny.js";const O={};function R(s,e,a){const[i,t]=s;switch(i){case"player/request":{const{name:r}=t;if(e.player?.name===r)break;return[{...e,player:{name:r}},z(t,a).then(n=>["player/load",{name:r,player:n}])]}case"player/load":{const{player:r}=t;return{...e,player:r}}case"player/save":{const{name:r}=t;return[e,F(t,a).then(n=>["player/load",{name:r,player:n}])]}case"players/request":{if(e.players)break;return[e,L(a).then(r=>["players/load",{players:r}])]}case"players/load":{const{players:r}=t;return{...e,players:r}}default:{const r=i;throw new Error(`Unhandled message type "${r}"`)}}return e}function z(s,e){return fetch(`/api/players/${s.name}`,{headers:u.headers(e)}).then(a=>{if(a.status===200)return a.json();throw`Failed to fetch player: ${a.status}`}).then(a=>{if(a)return a;throw"No JSON in response from server"})}function F(s,e){return fetch(`/api/players/${s.name}`,{method:"PUT",headers:{"Content-Type":"application/json",...u.headers(e)},body:JSON.stringify(s.player)}).then(a=>{if(a.status===200)return a.json();throw`Failed to save player: ${a.status}`}).then(a=>{if(a)return a;throw"No JSON in response from server"})}function L(s){return fetch("/api/players",{headers:u.headers(s)}).then(e=>{if(e.status===200)return e.json();throw`Failed to fetch players: ${e.status}`}).then(e=>{if(e)return e;throw"No JSON in response from server"})}var q=Object.defineProperty,d=(s,e,a,i)=>{for(var t=void 0,r=s.length-1,n;r>=0;r--)(n=s[r])&&(t=n(e,a,t)||t);return t&&q(e,a,t),t};const w=class w extends g{get imageSrc(){return this.image?.startsWith("/")?this.image:`/${this.image}`}render(){return p`
       <h1>${this.name}</h1>
       <img src="${this.imageSrc}" style="width: 300px;">
 
@@ -43,7 +43,7 @@ import{i as h,x as l,r as y,a as u,n as i,b as P,O as z,d as O,_ as j,h as R,c a
       </div>
 
       <p><a href="/app">← Back to Home</a></p>
-    `}};x.styles=[y.styles,u`
+    `}};w.styles=[f.styles,m`
       :host {
         display: block;
       }
@@ -88,14 +88,14 @@ import{i as h,x as l,r as y,a as u,n as i,b as P,O as z,d as O,_ as j,h as R,c a
       a:hover {
         text-decoration: underline;
       }
-    `];let o=x;p([i()],o.prototype,"name");p([i()],o.prototype,"image");p([i()],o.prototype,"position");p([i({attribute:"jersey-number"})],o.prototype,"jerseyNumber");p([i()],o.prototype,"team");p([i({attribute:"games-played"})],o.prototype,"gamesPlayed");p([i()],o.prototype,"receptions");p([i({attribute:"receiving-yards"})],o.prototype,"receivingYards");p([i({attribute:"receiving-touchdowns"})],o.prototype,"receivingTouchdowns");p([i({attribute:"fantasy-points"})],o.prototype,"fantasyPoints");var B=Object.defineProperty,f=(r,e,t,d)=>{for(var a=void 0,s=r.length-1,n;s>=0;s--)(n=r[s])&&(a=n(e,t,a)||a);return a&&B(e,t,a),a};const w=class w extends h{render(){return l`
+    `];let l=w;d([o()],l.prototype,"name");d([o()],l.prototype,"image");d([o()],l.prototype,"position");d([o({attribute:"jersey-number"})],l.prototype,"jerseyNumber");d([o()],l.prototype,"team");d([o({attribute:"games-played"})],l.prototype,"gamesPlayed");d([o()],l.prototype,"receptions");d([o({attribute:"receiving-yards"})],l.prototype,"receivingYards");d([o({attribute:"receiving-touchdowns"})],l.prototype,"receivingTouchdowns");d([o({attribute:"fantasy-points"})],l.prototype,"fantasyPoints");var J=Object.defineProperty,b=(s,e,a,i)=>{for(var t=void 0,r=s.length-1,n;r>=0;r--)(n=s[r])&&(t=n(e,a,t)||t);return t&&J(e,a,t),t};const $=class $ extends g{render(){return p`
       <svg class="icon">
         <use href="/icons/football.svg#icon-player" />
       </svg>
       <a href="${this.href}">${this.name}</a>
       <span class="separator"> - </span>
       <span class="team">${this.team}</span>
-    `}};w.styles=[y.styles,u`
+    `}};$.styles=[f.styles,m`
       :host {
         display: flex;
         align-items: center;
@@ -125,18 +125,18 @@ import{i as h,x as l,r as y,a as u,n as i,b as P,O as z,d as O,_ as j,h as R,c a
       .team {
         color: var(--color-text);
       }
-    `];let c=w;f([i()],c.prototype,"href");f([i()],c.prototype,"name");f([i()],c.prototype,"team");var F=Object.defineProperty,C=(r,e,t,d)=>{for(var a=void 0,s=r.length-1,n;s>=0;s--)(n=r[s])&&(a=n(e,t,a)||a);return a&&F(e,t,a),a};class b extends h{constructor(){super(...arguments),this.players=[],this._authObserver=new z(this,"ffl:auth")}connectedCallback(){super.connectedCallback(),this._authObserver.observe(e=>{this._user=e.user,this.src&&this.hydrate(this.src)})}get authorization(){return this._user?.authenticated&&{Authorization:`Bearer ${this._user.token}`}}hydrate(e){fetch(e,{headers:this.authorization||{}}).then(t=>t.json()).then(t=>{if(t){const d=t;this.players=d.map(a=>({href:`/app/player/${encodeURIComponent(a.name)}`,name:a.name,team:a.team}))}}).catch(t=>{console.error("Failed to fetch player data:",t)})}render(){const{players:e}=this;function t(d){return l`
+    `];let c=$;b([o()],c.prototype,"href");b([o()],c.prototype,"name");b([o()],c.prototype,"team");var A=Object.defineProperty,B=(s,e,a,i)=>{for(var t=void 0,r=s.length-1,n;r>=0;r--)(n=s[r])&&(t=n(e,a,t)||t);return t&&A(e,a,t),t};class C extends N{get players(){return(this.model.players||[]).map(e=>({href:`/app/player/${encodeURIComponent(e.name)}`,name:e.name,team:e.team}))}constructor(){super("ffl:model")}connectedCallback(){super.connectedCallback(),this.dispatchMessage(["players/request",{}])}render(){const{players:e}=this;function a(i){return p`
         <player-item
-          href=${d.href}
-          name=${d.name}
-          team=${d.team}
+          href=${i.href}
+          name=${i.name}
+          team=${i.team}
         ></player-item>
-      `}return l`
-      ${e.map(t)}
-    `}}C([i()],b.prototype,"src");C([P()],b.prototype,"players");const $=class $ extends h{render(){return l`
+      `}return p`
+      ${e.map(a)}
+    `}}B([o()],C.prototype,"src");const x=class x extends g{render(){return p`
       <span class="stat-label"><slot name="label"></slot>:</span>
       <span class="stat-value"><slot name="value"></slot></span>
-    `}};$.styles=[y.styles,u`
+    `}};x.styles=[f.styles,m`
       :host {
         display: flex;
         flex-direction: column;
@@ -154,7 +154,7 @@ import{i as h,x as l,r as y,a as u,n as i,b as P,O as z,d as O,_ as j,h as R,c a
         font-weight: 700;
         color: var(--color-heading);
       }
-    `];let g=$;const k=class k extends h{render(){return l`
+    `];let y=x;const k=class k extends g{render(){return p`
       <div class="content-wrapper">
         <aside class="sidebar">
           <h3>Featured Matchups</h3>
@@ -181,7 +181,7 @@ import{i as h,x as l,r as y,a as u,n as i,b as P,O as z,d as O,_ as j,h as R,c a
           </ul>
         </main>
       </div>
-    `}};k.styles=u`
+    `}};k.styles=m`
     :host {
       display: block;
       grid-area: content;
@@ -274,7 +274,7 @@ import{i as h,x as l,r as y,a as u,n as i,b as P,O as z,d as O,_ as j,h as R,c a
         padding: var(--spacing-lg, 1rem);
       }
     }
-  `;let v=k;var A=Object.defineProperty,N=(r,e,t,d)=>{for(var a=void 0,s=r.length-1,n;s>=0;s--)(n=r[s])&&(a=n(e,t,a)||a);return a&&A(e,t,a),a};const _=class _ extends h{constructor(){super(...arguments),this._authObserver=new z(this,"ffl:auth")}get src(){return`/api/players/${encodeURIComponent(this.playerName||"")}`}connectedCallback(){super.connectedCallback(),this._authObserver.observe(e=>{this._user=e.user,this.playerName&&this.hydrate(this.src)})}get authorization(){return this._user?.authenticated&&{Authorization:`Bearer ${this._user.token}`}}hydrate(e){fetch(e,{headers:this.authorization||{}}).then(t=>t.json()).then(t=>{t&&(this.playerData=t)}).catch(t=>{console.error("Failed to fetch player data:",t)})}render(){const{playerData:e}=this;return e?l`
+  `;let v=k;var Y=Object.defineProperty,U=(s,e,a,i)=>{for(var t=void 0,r=s.length-1,n;r>=0;r--)(n=s[r])&&(t=n(e,a,t)||t);return t&&Y(e,a,t),t};const P=class P extends N{get player(){return this.model.player}constructor(){super("ffl:model")}attributeChangedCallback(e,a,i){super.attributeChangedCallback(e,a,i),e==="player-name"&&a!==i&&i&&this.dispatchMessage(["player/request",{name:i}])}render(){const{player:e}=this;return e?p`
       <div class="content-wrapper">
         <aside class="sidebar">
           <h3>Featured Matchups</h3>
@@ -305,7 +305,7 @@ import{i as h,x as l,r as y,a as u,n as i,b as P,O as z,d as O,_ as j,h as R,c a
           ></player-card>
         </main>
       </div>
-    `:l`<p>Loading player data...</p>`}};_.styles=u`
+    `:p`<p>Loading player data...</p>`}};P.styles=m`
     :host {
       display: block;
       grid-area: content;
@@ -362,8 +362,8 @@ import{i as h,x as l,r as y,a as u,n as i,b as P,O as z,d as O,_ as j,h as R,c a
       padding: 1.5rem;
       overflow-y: auto;
     }
-  `;let m=_;N([i({attribute:"player-name"})],m.prototype,"playerName");N([P()],m.prototype,"playerData");const D=[{path:"/app/player/:name",view:r=>l`
-      <player-view player-name=${r.name}></player-view>
-    `},{path:"/app",view:()=>l`
+  `;let h=P;U([o({attribute:"player-name"})],h.prototype,"playerName");const D=[{path:"/app/player/:name",view:s=>p`
+      <player-view player-name=${s.name}></player-view>
+    `},{path:"/app",view:()=>p`
       <home-view></home-view>
-    `},{path:"/",redirect:"/app"}];O({"mu-auth":M.Provider,"mu-history":R.Provider,"mu-switch":class extends j.Element{constructor(){super(D,"ffl:history","ffl:auth")}},"header-element":T,"player-card":o,"player-item":c,"player-list":b,"stat-item":g,"home-view":v,"player-view":m});document.body.addEventListener("lightmode:toggle",r=>{r.detail.checked?document.body.classList.add("light-mode"):document.body.classList.remove("light-mode")});
+    `},{path:"/",redirect:"/app"}];_({"mu-auth":u.Provider,"mu-history":T.Provider,"mu-switch":class extends M.Element{constructor(){super(D,"ffl:history","ffl:auth")}},"mu-store":class extends j.Provider{constructor(){super(R,O,"ffl:auth")}},"header-element":S,"player-card":l,"player-item":c,"player-list":C,"stat-item":y,"home-view":v,"player-view":h});document.body.addEventListener("lightmode:toggle",s=>{s.detail.checked?document.body.classList.add("light-mode"):document.body.classList.remove("light-mode")});

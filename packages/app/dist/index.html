@@ -9,14 +9,16 @@
     <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
     <link rel="stylesheet" href="/styles/page.css" />
-  <script type="module" crossorigin src="/assets/main-B8CVAaGD.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/header-element-CeQS7Na3.js">
+  <script type="module" crossorigin src="/assets/main-DTQJKl7i.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/header-element-DSbsAAny.js">
 </head>
 <body>
   <mu-history provides="ffl:history">
     <mu-auth provides="ffl:auth" redirect="/login.html">
-      <header-element></header-element>
-      <mu-switch></mu-switch>
+      <mu-store provides="ffl:model">
+        <header-element></header-element>
+        <mu-switch></mu-switch>
+      </mu-store>
     </mu-auth>
   </mu-history>
 

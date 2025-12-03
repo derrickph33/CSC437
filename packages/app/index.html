@@ -14,8 +14,10 @@
 <body>
   <mu-history provides="ffl:history">
     <mu-auth provides="ffl:auth" redirect="/login.html">
-      <header-element></header-element>
-      <mu-switch></mu-switch>
+      <mu-store provides="ffl:model">
+        <header-element></header-element>
+        <mu-switch></mu-switch>
+      </mu-store>
     </mu-auth>
   </mu-history>
 

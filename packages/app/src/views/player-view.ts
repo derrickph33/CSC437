@@ -1,69 +1,44 @@
-import { LitElement, html, css } from "lit";
-import { property, state } from "lit/decorators.js";
-import { Observer, Auth } from "@calpoly/mustang";
+import { View } from "@calpoly/mustang";
+import { html, css } from "lit";
+import { property } from "lit/decorators.js";
+import { Player } from "server/models";
+import { Msg } from "../messages";
+import { Model } from "../model";
 
-interface PlayerCardData {
-  name: string;
-  image: string;
-  position: string;
-  jerseyNumber: string;
-  team: string;
-  gamesPlayed: string;
-  receptions: string;
-  receivingYards: string;
-  receivingTouchdowns: string;
-  fantasyPoints: string;
-}
-
-export class PlayerViewElement extends LitElement {
+export class PlayerViewElement extends View<Model, Msg> {
   @property({ attribute: "player-name" })
   playerName?: string;
 
-  @state()
-  playerData?: PlayerCardData;
-
-  _authObserver = new Observer<Auth.Model>(this, "ffl:auth");
-  _user?: Auth.User;
-
-  get src() {
-    return `/api/players/${encodeURIComponent(this.playerName || "")}`;
+  get player(): Player | undefined {
+    return this.model.player;
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    this._authObserver.observe((auth: Auth.Model) => {
-      this._user = auth.user;
-      // Fetch data after auth state is available
-      if (this.playerName) this.hydrate(this.src);
-    });
+  constructor() {
+    super("ffl:model");
   }
 
-  get authorization() {
-    return (
-      this._user?.authenticated && {
-        Authorization:
-          `Bearer ${(this._user as Auth.AuthenticatedUser).token}`
-      }
-    );
-  }
-
-  hydrate(src: string) {
-    fetch(src, { headers: this.authorization || {} })
-      .then((res) => res.json())
-      .then((json: object) => {
-        if (json) {
-          this.playerData = json as PlayerCardData;
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to fetch player data:", error);
-      });
+  attributeChangedCallback(
+    name: string,
+    oldValue: string,
+    newValue: string
+  ) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (
+      name === "player-name" &&
+      oldValue !== newValue &&
+      newValue
+    ) {
+      this.dispatchMessage([
+        "player/request",
+        { name: newValue }
+      ]);
+    }
   }
 
   render() {
-    const { playerData } = this;
+    const { player } = this;
 
-    if (!playerData) {
+    if (!player) {
       return html`<p>Loading player data...</p>`;
     }
 
@@ -85,16 +60,16 @@ export class PlayerViewElement extends LitElement {
 
         <main>
           <player-card
-            name=${playerData.name}
-            image=${playerData.image}
-            position=${playerData.position}
-            jersey-number=${playerData.jerseyNumber}
-            team=${playerData.team}
-            games-played=${playerData.gamesPlayed}
-            receptions=${playerData.receptions}
-            receiving-yards=${playerData.receivingYards}
-            receiving-touchdowns=${playerData.receivingTouchdowns}
-            fantasy-points=${playerData.fantasyPoints}
+            name=${player.name}
+            image=${player.image}
+            position=${player.position}
+            jersey-number=${player.jerseyNumber}
+            team=${player.team}
+            games-played=${player.gamesPlayed}
+            receptions=${player.receptions}
+            receiving-yards=${player.receivingYards}
+            receiving-touchdowns=${player.receivingTouchdowns}
+            fantasy-points=${player.fantasyPoints}
           ></player-card>
         </main>
       </div>
