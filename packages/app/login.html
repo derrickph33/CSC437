@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Login - Fantasy Football Land</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/reset.css" />
+  <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="stylesheet" href="/styles/page.css" />
+  <script type="module">
+    import { define, Auth } from "@calpoly/mustang";
+    import { LoginFormElement } from "/src/auth/login-form";
+    import { HeaderElement } from "/src/components/header-element";
+
+    define({
+      "mu-auth": Auth.Provider,
+      "login-form": LoginFormElement,
+      "header-element": HeaderElement
+    });
+  </script>
+</head>
+<body>
+  <mu-auth provides="ffl:auth">
+    <header-element></header-element>
+
+    <main style="max-width: 500px; margin: 0 auto; padding: 2rem;">
+      <h2 style="color: var(--color-text); text-align: center; margin-bottom: 2rem; font-size: 2rem;">User Login</h2>
+      <login-form api="/auth/login">
+        <label>
+          <span>Username:</span>
+          <input name="username" autocomplete="off" />
+        </label>
+        <label>
+          <span>Password:</span>
+          <input type="password" name="password" />
+        </label>
+      </login-form>
+      <p style="text-align: center; margin-top: 1.5rem; color: var(--color-text);">
+        Or did you want to
+        <a href="newuser.html" style="color: var(--color-background-header); text-decoration: none; font-weight: 600;">Sign up as a new user</a>?
+      </p>
+    </main>
+
+    <script type="module">
+      document.body.addEventListener('lightmode:toggle', (event) => {
+        if (event.detail.checked) {
+          document.body.classList.add('light-mode');
+        } else {
+          document.body.classList.remove('light-mode');
+        }
+      });
+    </script>
+  </mu-auth>
+</body>
+</html>
