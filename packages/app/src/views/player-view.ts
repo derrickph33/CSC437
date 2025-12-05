@@ -60,6 +60,8 @@ export class PlayerViewElement extends View<Model, Msg> {
           <h3>Navigation</h3>
           <nav>
             <a href="/app" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app")}>Home</a>
+            <a href="/app/players" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/players")}>Players</a>
+            <a href="/app/rankings" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/rankings")}>Rankings</a>
           </nav>
         </aside>
 

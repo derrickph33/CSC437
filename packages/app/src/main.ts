@@ -15,8 +15,11 @@ import { PlayerItemElement } from "./components/player-item";
 import { PlayerListElement } from "./components/player-list-element";
 import { StatItemElement } from "./components/stat-item";
 import { HomeViewElement } from "./views/home-view";
+import { PlayersViewElement } from "./views/players-view";
+import { RankingsViewElement } from "./views/rankings-view";
 import { PlayerViewElement } from "./views/player-view";
 import { PlayerEditElement } from "./views/player-edit-view";
+import { PlayerAddElement } from "./views/player-add-view";
 
 const routes = [
   {
@@ -29,6 +32,24 @@ const routes = [
     path: "/app/player/:name",
     view: (params: Switch.Params) => html`
       <player-view player-name=${params.name}></player-view>
+    `
+  },
+  {
+    path: "/app/players/add",
+    view: () => html`
+      <player-add></player-add>
+    `
+  },
+  {
+    path: "/app/players",
+    view: () => html`
+      <players-view></players-view>
+    `
+  },
+  {
+    path: "/app/rankings",
+    view: () => html`
+      <rankings-view></rankings-view>
     `
   },
   {
@@ -62,6 +83,9 @@ define({
   "player-list": PlayerListElement,
   "stat-item": StatItemElement,
   "home-view": HomeViewElement,
+  "players-view": PlayersViewElement,
+  "rankings-view": RankingsViewElement,
   "player-view": PlayerViewElement,
-  "player-edit": PlayerEditElement
+  "player-edit": PlayerEditElement,
+  "player-add": PlayerAddElement
 });

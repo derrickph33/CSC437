@@ -34,6 +34,11 @@ export class PlayerCardElement extends LitElement {
   fantasyPoints?: string;
 
   get imageSrc() {
+    // If it's a full URL (starts with http:// or https://), use it as-is
+    if (this.image?.startsWith('http://') || this.image?.startsWith('https://')) {
+      return this.image;
+    }
+    // Otherwise, treat it as a local path and add / prefix if needed
     return this.image?.startsWith('/') ? this.image : `/${this.image}`;
   }
 

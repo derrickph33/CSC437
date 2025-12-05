@@ -43,13 +43,12 @@ export class HeaderElement extends LitElement {
           <svg class="icon">
             <use href="/icons/football.svg#icon-football" />
           </svg>
-          <span class="app-name">Fantasy Football Land</span>
+          <span class="app-name">Wide Receiver University</span>
         </div>
         <nav class="header-nav">
           <a href="/app" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app")}>Home</a>
-          <a href="#">Players</a>
-          <a href="#">Teams</a>
-          <a href="#">Rankings</a>
+          <a href="/app/players" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/players")}>Players</a>
+          <a href="/app/rankings" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/rankings")}>Rankings</a>
         </nav>
         <div class="header-user">
           <span class="user-name">Hello, ${this.userid || "Footballer"}</span>

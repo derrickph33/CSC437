@@ -1,6 +1,12 @@
 import { html, css, LitElement } from "lit";
+import { History } from "@calpoly/mustang";
 
-export class HomeViewElement extends LitElement {
+export class PlayersViewElement extends LitElement {
+  handleNavigate(event: MouseEvent, href: string) {
+    event.preventDefault();
+    History.dispatch(this, "history/navigate", { href });
+  }
+
   render() {
     return html`
       <div class="content-wrapper">
@@ -21,9 +27,16 @@ export class HomeViewElement extends LitElement {
         </aside>
 
         <main>
-          <img src="/images/fantasy.png" style="width: 600px; margin-bottom: 2rem;">
+          <div class="header-section">
+            <div class="title-section">
+              <h1>Wide Receivers List</h1>
+              <p class="subtitle">Browse information for all of the top wide receivers!</p>
+            </div>
+            <a href="/app/players/add" class="add-button" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/players/add")}>
+              + Add Player
+            </a>
+          </div>
 
-          <h1>Top Players</h1>
           <ul class="player-list">
             <player-list src="/api/players"></player-list>
           </ul>
@@ -85,13 +98,52 @@ export class HomeViewElement extends LitElement {
     }
 
     main {
-      grid-column: span 9;
+      grid-column: span 10;
       padding: var(--spacing-xl, 1.5rem);
       overflow-y: auto;
     }
 
+    .header-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+      gap: 2rem;
+    }
+
+    .title-section {
+      flex: 1;
+    }
+
     h1 {
       color: var(--color-heading);
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      margin-top: 0;
+    }
+
+    .subtitle {
+      color: var(--color-text);
+      font-size: 1.1rem;
+      opacity: 0.8;
+      margin: 0;
+    }
+
+    .add-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--color-accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .add-button:hover {
+      opacity: 0.9;
     }
 
     ul.player-list {
@@ -105,7 +157,7 @@ export class HomeViewElement extends LitElement {
       }
 
       main {
-        grid-column: span 6;
+        grid-column: span 10;
       }
     }
 
@@ -123,6 +175,24 @@ export class HomeViewElement extends LitElement {
         grid-column: span 4;
         grid-row: 2;
         padding: var(--spacing-lg, 1rem);
+      }
+
+      .header-section {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .add-button {
+        text-align: center;
       }
     }
   `;

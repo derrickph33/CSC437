@@ -15,11 +15,17 @@ export class PlayerListElement extends View<Model, Msg> {
   src?: string;
 
   get players(): PlayerListItem[] {
-    return (this.model.players || []).map(player => ({
+    const playerList = (this.model.players || []).map(player => ({
       href: `/app/player/${encodeURIComponent(player.name)}`,
       name: player.name,
       team: player.team
     }));
+
+    return playerList.sort((a, b) => {
+      const firstNameA = a.name.split(' ')[0].toLowerCase();
+      const firstNameB = b.name.split(' ')[0].toLowerCase();
+      return firstNameA.localeCompare(firstNameB);
+    });
   }
 
   constructor() {

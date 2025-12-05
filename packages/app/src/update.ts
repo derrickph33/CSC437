@@ -26,10 +26,18 @@ export default function update(
     case "player/save": {
       const { name } = payload;
       return [
-        model,
+        { ...model, players: undefined },
         savePlayer(payload, user, callbacks || {})
           .then((player) => ["player/load", { name, player }])
       ];
+    }
+    case "player/create": {
+      return [
+        { ...model, players: undefined },
+        createPlayer(payload, user, callbacks || {})
+          .then((player) => ["player/load", { name: player.name, player }])
+      ];
+
     }
     case "players/request": {
       if (model.players) break;
@@ -88,6 +96,43 @@ function savePlayer(
       if (response.status === 200) return response.json();
       throw new Error(
         `Failed to save player for ${payload.name}`
+      );
+    })
+    .then((json: unknown) => {
+      if (json) {
+        if (callbacks.onSuccess) callbacks.onSuccess();
+        return json as Player;
+      }
+      throw new Error(
+        `No JSON in API response`
+      );
+    })
+    .catch((err) => {
+      if (callbacks.onFailure) callbacks.onFailure(err);
+      throw err;
+    });
+}
+
+function createPlayer(
+  payload: { player: Player },
+  user: Auth.User,
+  callbacks: {
+    onSuccess?: () => void;
+    onFailure?: (err: Error) => void;
+  }
+): Promise<Player> {
+  return fetch("/api/players", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...Auth.headers(user)
+    },
+    body: JSON.stringify(payload.player)
+  })
+    .then((response: Response) => {
+      if (response.status === 201) return response.json();
+      throw new Error(
+        `Failed to create player`
       );
     })
     .then((json: unknown) => {

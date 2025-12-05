@@ -10,6 +10,14 @@ export type Msg =
         onFailure?: (err: Error) => void;
       }
     ]
+  | [
+      "player/create",
+      { player: Player },
+      {
+        onSuccess?: () => void;
+        onFailure?: (err: Error) => void;
+      }
+    ]
   | ["players/request", {}]
   | Cmd;
 
