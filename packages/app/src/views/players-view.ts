@@ -11,18 +11,54 @@ export class PlayersViewElement extends LitElement {
     return html`
       <div class="content-wrapper">
         <aside class="sidebar">
-          <h3>Featured Matchups</h3>
+          <h3>Fantasy Football</h3>
           <nav>
-            <a href="#">Team Matchups</a>
-            <a href="#">Position Matchups</a>
-            <a href="#">Matchup Rankings</a>
+            <a href="/app/players">
+              <svg class="nav-icon">
+                <use href="/icons/football.svg#icon-player" />
+              </svg>
+              All Players
+            </a>
+            <a href="/app/rankings">
+              <img src="/icons/rankings.svg" class="nav-icon-img" alt="rankings">
+              Player Rankings
+            </a>
+            <a href="/app/matchups">
+              <img src="/icons/matchups.svg" class="nav-icon-img" alt="matchups">
+              Matchups
+            </a>
           </nav>
 
           <h3>Trending Players</h3>
           <nav>
-            <a href="/app/player/CeeDee%20Lamb">CeeDee Lamb</a>
-            <a href="/app/player/Puka%20Nacua">Puka Nacua</a>
-            <a href="/app/player/Amon-Ra%20St.%20Brown">Amon-Ra St. Brown</a>
+            <a href="/app/player/Rashee%20Rice">
+              <img src="/icons/fire.svg" class="fire-icon" alt="trending">
+              Rashee Rice
+            </a>
+            <a href="/app/player/Davante%20Adams">
+              <img src="/icons/fire.svg" class="fire-icon" alt="trending">
+              Davante Adams
+            </a>
+            <a href="/app/player/A.J.%20Brown">
+              <img src="/icons/fire.svg" class="fire-icon" alt="trending">
+              A.J. Brown
+            </a>
+          </nav>
+
+          <h3>Falling Players</h3>
+          <nav>
+            <a href="/app/player/Justin%20Jefferson">
+              <img src="/icons/cold.svg" class="cold-icon" alt="falling">
+              Justin Jefferson
+            </a>
+            <a href="/app/player/Emeka%20Egbuka">
+              <img src="/icons/cold.svg" class="cold-icon" alt="falling">
+              Emeka Egbuka
+            </a>
+            <a href="/app/player/Rome%20Odunze">
+              <img src="/icons/cold.svg" class="cold-icon" alt="falling">
+              Rome Odunze
+            </a>
           </nav>
         </aside>
 
@@ -38,7 +74,7 @@ export class PlayersViewElement extends LitElement {
           </div>
 
           <ul class="player-list">
-            <player-list src="/api/players"></player-list>
+            <player-list src="/api/players" sortBy="alphabetical"></player-list>
           </ul>
         </main>
       </div>
@@ -62,9 +98,9 @@ export class PlayersViewElement extends LitElement {
     }
 
     aside.sidebar {
-      grid-column: span 2;
+      grid-column: span 3;
       background-color: var(--color-background-sidebar);
-      padding: 1.5rem;
+      padding: 1.5rem 1.5rem 1.5rem 2rem;
       overflow-y: auto;
     }
 
@@ -72,7 +108,7 @@ export class PlayersViewElement extends LitElement {
       color: var(--color-text-header);
       margin-top: 0;
       margin-bottom: var(--spacing-lg, 1rem);
-      font-size: 1.1rem;
+      font-size: 1.3rem;
     }
 
     aside.sidebar h3:not(:first-child) {
@@ -91,14 +127,47 @@ export class PlayersViewElement extends LitElement {
       padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 0.75rem);
       border-radius: 4px;
       transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
     }
 
     aside.sidebar nav a:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
 
+    .fire-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      filter: brightness(0) saturate(100%) invert(30%) sepia(100%) saturate(5000%) hue-rotate(350deg) brightness(0.9);
+    }
+
+    .cold-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(180deg) brightness(1.2);
+    }
+
+    .nav-icon {
+      display: inline-block;
+      height: 1.2em;
+      width: 1.2em;
+      vertical-align: top;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .nav-icon-img {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
     main {
-      grid-column: span 10;
+      grid-column: span 9;
       padding: var(--spacing-xl, 1.5rem);
       overflow-y: auto;
     }

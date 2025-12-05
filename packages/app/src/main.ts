@@ -17,11 +17,26 @@ import { StatItemElement } from "./components/stat-item";
 import { HomeViewElement } from "./views/home-view";
 import { PlayersViewElement } from "./views/players-view";
 import { RankingsViewElement } from "./views/rankings-view";
+import { MatchupsViewElement } from "./views/matchups-view";
+import { TeamViewElement } from "./views/team-view";
+import { TeamEditElement } from "./views/team-edit-view";
 import { PlayerViewElement } from "./views/player-view";
 import { PlayerEditElement } from "./views/player-edit-view";
 import { PlayerAddElement } from "./views/player-add-view";
 
 const routes = [
+  {
+    path: "/app/team/:name/edit",
+    view: (params: Switch.Params) => html`
+      <team-edit team-name=${params.name}></team-edit>
+    `
+  },
+  {
+    path: "/app/team/:name",
+    view: (params: Switch.Params) => html`
+      <team-view team-name=${params.name}></team-view>
+    `
+  },
   {
     path: "/app/player/:name/edit",
     view: (params: Switch.Params) => html`
@@ -50,6 +65,12 @@ const routes = [
     path: "/app/rankings",
     view: () => html`
       <rankings-view></rankings-view>
+    `
+  },
+  {
+    path: "/app/matchups",
+    view: () => html`
+      <matchups-view></matchups-view>
     `
   },
   {
@@ -85,6 +106,9 @@ define({
   "home-view": HomeViewElement,
   "players-view": PlayersViewElement,
   "rankings-view": RankingsViewElement,
+  "matchups-view": MatchupsViewElement,
+  "team-view": TeamViewElement,
+  "team-edit": TeamEditElement,
   "player-view": PlayerViewElement,
   "player-edit": PlayerEditElement,
   "player-add": PlayerAddElement

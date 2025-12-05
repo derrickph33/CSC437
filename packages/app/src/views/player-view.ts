@@ -50,11 +50,22 @@ export class PlayerViewElement extends View<Model, Msg> {
     return html`
       <div class="content-wrapper">
         <aside class="sidebar">
-          <h3>Featured Matchups</h3>
+          <h3>Fantasy Football</h3>
           <nav>
-            <a href="#">Team Matchups</a>
-            <a href="#">Position Matchups</a>
-            <a href="#">Matchup Rankings</a>
+            <a href="/app/players" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/players")}>
+              <svg class="nav-icon">
+                <use href="/icons/football.svg#icon-player" />
+              </svg>
+              All Players
+            </a>
+            <a href="/app/rankings" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/rankings")}>
+              <img src="/icons/rankings.svg" class="nav-icon-img" alt="rankings">
+              Player Rankings
+            </a>
+            <a href="/app/matchups" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/matchups")}>
+              <img src="/icons/matchups.svg" class="nav-icon-img" alt="matchups">
+              Matchups
+            </a>
           </nav>
 
           <h3>Navigation</h3>
@@ -105,7 +116,7 @@ export class PlayerViewElement extends View<Model, Msg> {
     aside.sidebar {
       grid-column: span 2;
       background-color: var(--color-background-sidebar);
-      padding: 1.5rem;
+      padding: 1.5rem 1.5rem 1.5rem 2rem;
       overflow-y: auto;
     }
 
@@ -113,7 +124,7 @@ export class PlayerViewElement extends View<Model, Msg> {
       color: var(--color-text-header);
       margin-top: 0;
       margin-bottom: 1rem;
-      font-size: 1.1rem;
+      font-size: 1.3rem;
     }
 
     aside.sidebar h3:not(:first-child) {
@@ -132,10 +143,29 @@ export class PlayerViewElement extends View<Model, Msg> {
       padding: 0.5rem 0.75rem;
       border-radius: 4px;
       transition: background-color 0.2s;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     aside.sidebar nav a:hover {
       background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-icon {
+      display: inline-block;
+      height: 1.2em;
+      width: 1.2em;
+      vertical-align: top;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .nav-icon-img {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
     }
 
     main {

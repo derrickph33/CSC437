@@ -14,18 +14,32 @@ export class PlayerListElement extends View<Model, Msg> {
   @property()
   src?: string;
 
+  @property({ type: Number })
+  limit?: number;
+
+  @property()
+  sortBy?: 'fantasyPoints' | 'alphabetical' = 'fantasyPoints';
+
   get players(): PlayerListItem[] {
-    const playerList = (this.model.players || []).map(player => ({
+    let receivers = (this.model.players || []).sort((a, b) => {
+      if (this.sortBy === 'alphabetical') {
+        return a.name.localeCompare(b.name);
+      } else {
+        const pointsA = parseFloat(a.fantasyPoints) || 0;
+        const pointsB = parseFloat(b.fantasyPoints) || 0;
+        return pointsB - pointsA;
+      }
+    });
+
+    if (this.limit) {
+      receivers = receivers.slice(0, this.limit);
+    }
+
+    return receivers.map(player => ({
       href: `/app/player/${encodeURIComponent(player.name)}`,
       name: player.name,
       team: player.team
     }));
-
-    return playerList.sort((a, b) => {
-      const firstNameA = a.name.split(' ')[0].toLowerCase();
-      const firstNameB = b.name.split(' ')[0].toLowerCase();
-      return firstNameA.localeCompare(firstNameB);
-    });
   }
 
   constructor() {

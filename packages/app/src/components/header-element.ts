@@ -49,6 +49,7 @@ export class HeaderElement extends LitElement {
           <a href="/app" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app")}>Home</a>
           <a href="/app/players" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/players")}>Players</a>
           <a href="/app/rankings" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/rankings")}>Rankings</a>
+          <a href="/app/matchups" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/matchups")}>Matchups</a>
         </nav>
         <div class="header-user">
           <span class="user-name">Hello, ${this.userid || "Footballer"}</span>
@@ -118,7 +119,7 @@ export class HeaderElement extends LitElement {
         align-items: center;
         gap: var(--spacing-sm);
         font-weight: bold;
-        font-size: 1.25rem;
+        font-size: 1.75rem;
       }
 
       .header-nav {
@@ -132,6 +133,7 @@ export class HeaderElement extends LitElement {
         color: var(--color-text-header);
         text-decoration: none;
         font-weight: 500;
+        font-size: 1.15rem;
         transition: opacity 0.2s;
       }
 
@@ -143,6 +145,7 @@ export class HeaderElement extends LitElement {
         display: flex;
         align-items: center;
         gap: var(--spacing-md);
+        font-size: 1.1rem;
       }
 
       .user-name {
@@ -193,6 +196,7 @@ export class HeaderElement extends LitElement {
 
       label {
         cursor: pointer;
+        font-size: 1.1rem;
       }
     `
   ];
