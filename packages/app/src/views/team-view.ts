@@ -1,56 +1,38 @@
-import { html, css, LitElement } from "lit";
-import { property, state } from "lit/decorators.js";
-import { History } from "@calpoly/mustang";
+import { html, css } from "lit";
+import { property } from "lit/decorators.js";
+import { History, View } from "@calpoly/mustang";
+import { Msg } from "../messages";
+import { Model } from "../model";
 
-interface Team {
-  name: string;
-  image: string;
-  defensiveRank: string;
-  rankVsWRs: string;
-}
-
-export class TeamViewElement extends LitElement {
+export class TeamViewElement extends View<Model, Msg> {
   @property({ attribute: "team-name" })
   teamName?: string;
 
-  @state()
-  team: Team = {
-    name: "",
-    image: "",
-    defensiveRank: "N/A",
-    rankVsWRs: "N/A"
-  };
+  constructor() {
+    super("ffl:model");
+  }
 
   connectedCallback() {
     super.connectedCallback();
     if (this.teamName) {
-      this.loadTeam();
+      this.dispatchMessage(["team/request", { name: this.teamName }]);
     }
   }
 
-  loadTeam() {
-    const storedTeams = localStorage.getItem("nfl-teams");
-    if (storedTeams) {
-      const teams = JSON.parse(storedTeams);
-      const foundTeam = teams.find((t: Team) => t.name === this.teamName);
-      if (foundTeam) {
-        this.team = foundTeam;
-      } else {
-        this.team = {
-          name: this.teamName || "",
-          image: "",
-          defensiveRank: "N/A",
-          rankVsWRs: "N/A"
-        };
-      }
-    } else {
-      this.team = {
-        name: this.teamName || "",
-        image: "",
-        defensiveRank: "N/A",
-        rankVsWRs: "N/A"
-      };
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "team-name" && oldValue !== newValue && newValue) {
+      this.dispatchMessage(["team/request", { name: newValue }]);
     }
+  }
+
+  get team() {
+    return this.model.team || {
+      name: this.teamName || "",
+      image: "",
+      defensiveRank: "N/A",
+      rankVsWRs: "N/A"
+    };
   }
 
   handleNavigate(event: MouseEvent, href: string) {
@@ -76,7 +58,7 @@ export class TeamViewElement extends LitElement {
             </a>
             <a href="/app/matchups" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/matchups")}>
               <img src="/icons/matchups.svg" class="nav-icon-img" alt="matchups">
-              Matchups
+              Fantasy Matchups
             </a>
           </nav>
 

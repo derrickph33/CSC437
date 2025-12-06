@@ -26,12 +26,14 @@ var import_promises = __toESM(require("node:fs/promises"));
 var import_path = __toESM(require("path"));
 var import_mongo = require("./services/mongo");
 var import_players = __toESM(require("./routes/players"));
+var import_teams = __toESM(require("./routes/teams"));
 var import_auth = __toESM(require("./routes/auth"));
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.json());
 app.use("/api/players", import_auth.authenticateUser, import_players.default);
+app.use("/api/teams", import_auth.authenticateUser, import_teams.default);
 app.use("/auth", import_auth.default);
 app.use(import_express.default.static(staticDir));
 app.use("/app", (req, res) => {

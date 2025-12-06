@@ -1,89 +1,37 @@
-import { html, css, LitElement } from "lit";
+import { html, css } from "lit";
 import { state } from "lit/decorators.js";
+import { View } from "@calpoly/mustang";
+import { Msg } from "../messages";
+import { Model } from "../model";
 
-interface Team {
-  name: string;
-  image: string;
-  defensiveRank: string;
-  rankVsWRs: string;
-}
-
-export class MatchupsViewElement extends LitElement {
+export class MatchupsViewElement extends View<Model, Msg> {
   @state()
   sortBy: 'defensiveRank' | 'rankVsWRs' = 'defensiveRank';
 
-  @state()
-  teams: Team[] = [];
-
-  nflTeams = [
-    "Arizona Cardinals",
-    "Atlanta Falcons",
-    "Baltimore Ravens",
-    "Buffalo Bills",
-    "Carolina Panthers",
-    "Chicago Bears",
-    "Cincinnati Bengals",
-    "Cleveland Browns",
-    "Dallas Cowboys",
-    "Denver Broncos",
-    "Detroit Lions",
-    "Green Bay Packers",
-    "Houston Texans",
-    "Indianapolis Colts",
-    "Jacksonville Jaguars",
-    "Kansas City Chiefs",
-    "Las Vegas Raiders",
-    "Los Angeles Chargers",
-    "Los Angeles Rams",
-    "Miami Dolphins",
-    "Minnesota Vikings",
-    "New England Patriots",
-    "New Orleans Saints",
-    "New York Giants",
-    "New York Jets",
-    "Philadelphia Eagles",
-    "Pittsburgh Steelers",
-    "San Francisco 49ers",
-    "Seattle Seahawks",
-    "Tampa Bay Buccaneers",
-    "Tennessee Titans",
-    "Washington Commanders"
-  ];
+  constructor() {
+    super("ffl:model");
+  }
 
   connectedCallback() {
     super.connectedCallback();
-    this.loadTeams();
-  }
-
-  loadTeams() {
-    const storedTeams = localStorage.getItem("nfl-teams");
-    const teamsData: Team[] = storedTeams ? JSON.parse(storedTeams) : [];
-
-    this.teams = this.nflTeams.map(teamName => {
-      const foundTeam = teamsData.find(t => t.name === teamName);
-      return foundTeam || {
-        name: teamName,
-        image: "",
-        defensiveRank: "N/A",
-        rankVsWRs: "N/A"
-      };
-    });
+    this.dispatchMessage(["teams/request", {}]);
   }
 
   getSortedTeams() {
-    const teamsCopy = [...this.teams];
+    const teams = this.model.teams || [];
+    const teamsCopy = [...teams];
 
     if (this.sortBy === 'defensiveRank') {
       return teamsCopy.sort((a, b) => {
-        const aRank = a.defensiveRank === 'N/A' ? 999 : parseInt(a.defensiveRank);
-        const bRank = b.defensiveRank === 'N/A' ? 999 : parseInt(b.defensiveRank);
-        return aRank - bRank;
+        const aRank = a.defensiveRank === 'N/A' ? -1 : parseInt(a.defensiveRank);
+        const bRank = b.defensiveRank === 'N/A' ? -1 : parseInt(b.defensiveRank);
+        return bRank - aRank;
       });
     } else {
       return teamsCopy.sort((a, b) => {
-        const aRank = a.rankVsWRs === 'N/A' ? 999 : parseInt(a.rankVsWRs);
-        const bRank = b.rankVsWRs === 'N/A' ? 999 : parseInt(b.rankVsWRs);
-        return aRank - bRank;
+        const aRank = a.rankVsWRs === 'N/A' ? -1 : parseInt(a.rankVsWRs);
+        const bRank = b.rankVsWRs === 'N/A' ? -1 : parseInt(b.rankVsWRs);
+        return bRank - aRank;
       });
     }
   }
@@ -112,7 +60,7 @@ export class MatchupsViewElement extends LitElement {
             </a>
             <a href="/app/matchups">
               <img src="/icons/matchups.svg" class="nav-icon-img" alt="matchups">
-              Matchups
+              Fantasy Matchups
             </a>
           </nav>
 
@@ -157,7 +105,7 @@ export class MatchupsViewElement extends LitElement {
             <button
               class="${this.sortBy === 'defensiveRank' ? 'active' : ''}"
               @click=${() => this.handleSortChange('defensiveRank')}>
-              Sort by Defensive Rank
+              Sort by NFL Defensive Rank
             </button>
             <button
               class="${this.sortBy === 'rankVsWRs' ? 'active' : ''}"

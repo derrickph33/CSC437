@@ -1,56 +1,38 @@
-import { html, css, LitElement } from "lit";
-import { property, state } from "lit/decorators.js";
-import { History } from "@calpoly/mustang";
+import { html, css } from "lit";
+import { property } from "lit/decorators.js";
+import { History, View } from "@calpoly/mustang";
+import { Msg } from "../messages";
+import { Model } from "../model";
 
-interface Team {
-  name: string;
-  image: string;
-  defensiveRank: string;
-  rankVsWRs: string;
-}
-
-export class TeamEditElement extends LitElement {
+export class TeamEditElement extends View<Model, Msg> {
   @property({ attribute: "team-name" })
   teamName?: string;
 
-  @state()
-  team: Team = {
-    name: "",
-    image: "",
-    defensiveRank: "",
-    rankVsWRs: ""
-  };
+  constructor() {
+    super("ffl:model");
+  }
 
   connectedCallback() {
     super.connectedCallback();
     if (this.teamName) {
-      this.loadTeam();
+      this.dispatchMessage(["team/request", { name: this.teamName }]);
     }
   }
 
-  loadTeam() {
-    const storedTeams = localStorage.getItem("nfl-teams");
-    if (storedTeams) {
-      const teams = JSON.parse(storedTeams);
-      const foundTeam = teams.find((t: Team) => t.name === this.teamName);
-      if (foundTeam) {
-        this.team = foundTeam;
-      } else {
-        this.team = {
-          name: this.teamName || "",
-          image: "",
-          defensiveRank: "",
-          rankVsWRs: ""
-        };
-      }
-    } else {
-      this.team = {
-        name: this.teamName || "",
-        image: "",
-        defensiveRank: "",
-        rankVsWRs: ""
-      };
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "team-name" && oldValue !== newValue && newValue) {
+      this.dispatchMessage(["team/request", { name: newValue }]);
     }
+  }
+
+  get team() {
+    return this.model.team || {
+      name: this.teamName || "",
+      image: "",
+      defensiveRank: "",
+      rankVsWRs: ""
+    };
   }
 
   handleSubmit(event: Event) {
@@ -58,28 +40,27 @@ export class TeamEditElement extends LitElement {
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
 
-    const updatedTeam: Team = {
+    const updatedTeam = {
       name: this.team.name,
       image: formData.get("image") as string,
       defensiveRank: formData.get("defensiveRank") as string,
       rankVsWRs: formData.get("rankVsWRs") as string
     };
 
-    const storedTeams = localStorage.getItem("nfl-teams");
-    let teams: Team[] = storedTeams ? JSON.parse(storedTeams) : [];
-
-    const existingIndex = teams.findIndex((t: Team) => t.name === this.team.name);
-    if (existingIndex >= 0) {
-      teams[existingIndex] = updatedTeam;
-    } else {
-      teams.push(updatedTeam);
-    }
-
-    localStorage.setItem("nfl-teams", JSON.stringify(teams));
-
-    History.dispatch(this, "history/navigate", {
-      href: `/app/team/${encodeURIComponent(this.team.name)}`
-    });
+    this.dispatchMessage([
+      "team/save",
+      { name: this.team.name, team: updatedTeam },
+      {
+        onSuccess: () => {
+          History.dispatch(this, "history/navigate", {
+            href: `/app/team/${encodeURIComponent(this.team.name)}`
+          });
+        },
+        onFailure: (err: Error) => {
+          console.error("Error saving team:", err);
+        }
+      }
+    ]);
   }
 
   handleNavigate(event: MouseEvent, href: string) {
@@ -105,7 +86,7 @@ export class TeamEditElement extends LitElement {
             </a>
             <a href="/app/matchups" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/matchups")}>
               <img src="/icons/matchups.svg" class="nav-icon-img" alt="matchups">
-              Matchups
+              Fantasy Matchups
             </a>
           </nav>
 

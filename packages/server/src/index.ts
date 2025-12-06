@@ -4,6 +4,7 @@ import path from "path";
 import { connect } from "./services/mongo";
 import Players from "./services/player-svc";
 import players from "./routes/players";
+import teams from "./routes/teams";
 import auth, { authenticateUser } from "./routes/auth";
 
 const app = express();
@@ -13,6 +14,7 @@ const staticDir = process.env.STATIC || "public";
 app.use(express.json());
 
 app.use("/api/players", authenticateUser, players);
+app.use("/api/teams", authenticateUser, teams);
 app.use("/auth", auth);
 
 app.use(express.static(staticDir));

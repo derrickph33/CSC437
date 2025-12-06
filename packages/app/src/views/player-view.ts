@@ -64,7 +64,7 @@ export class PlayerViewElement extends View<Model, Msg> {
             </a>
             <a href="/app/matchups" @click=${(e: MouseEvent) => this.handleNavigate(e, "/app/matchups")}>
               <img src="/icons/matchups.svg" class="nav-icon-img" alt="matchups">
-              Matchups
+              Fantasy Matchups
             </a>
           </nav>
 

@@ -95,6 +95,7 @@ export class PlayerEditElement extends View<Model, Msg> {
             </label>
             <div class="form-actions">
               <a href="/app/player/${this.playerName}" class="action-button back-button" @click=${(e: MouseEvent) => this.handleNavigate(e, `/app/player/${this.playerName}`)}>Back</a>
+              <button type="button" class="action-button delete-button" @click=${this.handleDelete}>Delete Player</button>
             </div>
           </mu-form>
         </section>
@@ -103,21 +104,46 @@ export class PlayerEditElement extends View<Model, Msg> {
   }
 
   handleSubmit(event: Form.SubmitEvent<Player>) {
+    const updatedPlayer = event.detail;
     this.dispatchMessage([
       "player/save",
       {
         name: this.playerName!,
-        player: event.detail
+        player: updatedPlayer
       },
       {
         onSuccess: () =>
           History.dispatch(this, "history/navigate", {
-            href: `/app/player/${this.playerName}`
+            href: `/app/player/${updatedPlayer.name}`
           }),
         onFailure: (error: Error) =>
           console.log("ERROR:", error)
       }
     ]);
+  }
+
+  handleDelete() {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${this.playerName}? This action cannot be undone.`
+    );
+
+    if (confirmed) {
+      this.dispatchMessage([
+        "player/delete",
+        { name: this.playerName! },
+        {
+          onSuccess: () => {
+            History.dispatch(this, "history/navigate", {
+              href: "/app/players"
+            });
+          },
+          onFailure: (error: Error) => {
+            console.error("Failed to delete player:", error);
+            alert("Failed to delete player. Please try again.");
+          }
+        }
+      ]);
+    }
   }
 
   static styles = css`
@@ -203,6 +229,16 @@ export class PlayerEditElement extends View<Model, Msg> {
 
     .back-button {
       background-color: #6c757d;
+    }
+
+    .delete-button {
+      background-color: #dc3545;
+      margin-left: auto;
+    }
+
+    .delete-button:hover {
+      background-color: #c82333;
+      opacity: 1;
     }
 
     /* Style the submit button provided by mu-form */

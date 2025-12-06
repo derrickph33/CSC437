@@ -1,7 +1,7 @@
 import { Auth, ThenUpdate } from "@calpoly/mustang";
 import { Model } from "./model";
 import { Msg } from "./messages";
-import { Player } from "server/models";
+import { Player, Team } from "server/models";
 
 export default function update(
   message: Msg,
@@ -39,6 +39,13 @@ export default function update(
       ];
 
     }
+    case "player/delete": {
+      const { name } = payload;
+      return [
+        { ...model, players: undefined, player: undefined },
+        deletePlayer(payload, user, callbacks || {})
+      ];
+    }
     case "players/request": {
       if (model.players) break;
       return [
@@ -50,6 +57,39 @@ export default function update(
     case "players/load": {
       const { players } = payload;
       return { ...model, players };
+    }
+    case "team/request": {
+      const { name } = payload;
+      if (model.team?.name === name) break;
+      return [
+        { ...model, team: { name } as Team },
+        requestTeam(payload, user)
+          .then((team) => ["team/load", { name, team }])
+      ];
+    }
+    case "team/load": {
+      const { team } = payload;
+      return { ...model, team };
+    }
+    case "team/save": {
+      const { name } = payload;
+      return [
+        { ...model, teams: undefined },
+        saveTeam(payload, user, callbacks || {})
+          .then((team) => ["team/load", { name, team }])
+      ];
+    }
+    case "teams/request": {
+      if (model.teams) break;
+      return [
+        model,
+        requestTeams(user)
+          .then((teams) => ["teams/load", { teams }])
+      ];
+    }
+    case "teams/load": {
+      const { teams } = payload;
+      return { ...model, teams };
     }
     default: {
       const unhandled: never = type;
@@ -150,6 +190,33 @@ function createPlayer(
     });
 }
 
+function deletePlayer(
+  payload: { name: string },
+  user: Auth.User,
+  callbacks: {
+    onSuccess?: () => void;
+    onFailure?: (err: Error) => void;
+  }
+): Promise<void> {
+  return fetch(`/api/players/${payload.name}`, {
+    method: "DELETE",
+    headers: Auth.headers(user)
+  })
+    .then((response: Response) => {
+      if (response.status === 204) {
+        if (callbacks.onSuccess) callbacks.onSuccess();
+        return;
+      }
+      throw new Error(
+        `Failed to delete player ${payload.name}`
+      );
+    })
+    .catch((err) => {
+      if (callbacks.onFailure) callbacks.onFailure(err);
+      throw err;
+    });
+}
+
 function requestPlayers(user: Auth.User): Promise<Player[]> {
   return fetch("/api/players", {
     headers: Auth.headers(user)
@@ -160,6 +227,74 @@ function requestPlayers(user: Auth.User): Promise<Player[]> {
     })
     .then((json: unknown) => {
       if (json) return json as Player[];
+      throw "No JSON in response from server";
+    });
+}
+
+function requestTeam(
+  payload: { name: string },
+  user: Auth.User
+): Promise<Team> {
+  return fetch(`/api/teams/${payload.name}`, {
+    headers: Auth.headers(user)
+  })
+    .then((response: Response) => {
+      if (response.status === 200) return response.json();
+      throw `Failed to fetch team: ${response.status}`;
+    })
+    .then((json: unknown) => {
+      if (json) return json as Team;
+      throw "No JSON in response from server";
+    });
+}
+
+function saveTeam(
+  payload: { name: string; team: Team },
+  user: Auth.User,
+  callbacks: {
+    onSuccess?: () => void;
+    onFailure?: (err: Error) => void;
+  }
+): Promise<Team> {
+  return fetch(`/api/teams/${payload.name}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      ...Auth.headers(user)
+    },
+    body: JSON.stringify(payload.team)
+  })
+    .then((response: Response) => {
+      if (response.status === 200) return response.json();
+      throw new Error(
+        `Failed to save team for ${payload.name}`
+      );
+    })
+    .then((json: unknown) => {
+      if (json) {
+        if (callbacks.onSuccess) callbacks.onSuccess();
+        return json as Team;
+      }
+      throw new Error(
+        `No JSON in API response`
+      );
+    })
+    .catch((err) => {
+      if (callbacks.onFailure) callbacks.onFailure(err);
+      throw err;
+    });
+}
+
+function requestTeams(user: Auth.User): Promise<Team[]> {
+  return fetch("/api/teams", {
+    headers: Auth.headers(user)
+  })
+    .then((response: Response) => {
+      if (response.status === 200) return response.json();
+      throw `Failed to fetch teams: ${response.status}`;
+    })
+    .then((json: unknown) => {
+      if (json) return json as Team[];
       throw "No JSON in response from server";
     });
 }

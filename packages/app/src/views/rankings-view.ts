@@ -114,7 +114,7 @@ export class RankingsViewElement extends View<Model, Msg> {
             </a>
             <a href="/app/matchups">
               <img src="/icons/matchups.svg" class="nav-icon-img" alt="matchups">
-              Matchups
+              Fantasy Matchups
             </a>
           </nav>
 

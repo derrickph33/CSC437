@@ -25,7 +25,7 @@ export class PlayersViewElement extends LitElement {
             </a>
             <a href="/app/matchups">
               <img src="/icons/matchups.svg" class="nav-icon-img" alt="matchups">
-              Matchups
+              Fantasy Matchups
             </a>
           </nav>
 
