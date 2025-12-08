@@ -99,11 +99,9 @@ export class LoginFormElement extends LitElement {
               { token, redirect: this.redirect }
           ]
           });
-          console.log("dispatching message", customEvent);
           this.dispatchEvent(customEvent);
       })
       .catch((error: Error) => {
-          console.log(error);
           this.error = error.toString();
       });
     }

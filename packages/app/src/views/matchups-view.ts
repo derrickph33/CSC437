@@ -98,20 +98,28 @@ export class MatchupsViewElement extends View<Model, Msg> {
         </aside>
 
         <main>
-          <h1>Matchups by Teams</h1>
-          <p class="subtitle">Ranking Matchups versus all 32 NFL Teams!</p>
+          <div class="page-header">
+            <div class="header-content">
+              <h1>Matchups by Teams</h1>
+              <p class="subtitle">Ranking Matchups versus all 32 NFL Teams!</p>
 
-          <div class="filter-controls">
-            <button
-              class="${this.sortBy === 'defensiveRank' ? 'active' : ''}"
-              @click=${() => this.handleSortChange('defensiveRank')}>
-              Sort by NFL Defensive Rank
-            </button>
-            <button
-              class="${this.sortBy === 'rankVsWRs' ? 'active' : ''}"
-              @click=${() => this.handleSortChange('rankVsWRs')}>
-              Sort by Rank vs WRs
-            </button>
+              <div class="filter-controls">
+                <button
+                  class="${this.sortBy === 'defensiveRank' ? 'active' : ''}"
+                  @click=${() => this.handleSortChange('defensiveRank')}>
+                  Sort by NFL Defensive Rank
+                </button>
+                <button
+                  class="${this.sortBy === 'rankVsWRs' ? 'active' : ''}"
+                  @click=${() => this.handleSortChange('rankVsWRs')}>
+                  Sort by Rank vs WRs
+                </button>
+              </div>
+            </div>
+
+            <div class="image-container">
+              <img src="/images/fantasy.png" class="fantasy-image" alt="Fantasy Football">
+            </div>
           </div>
 
           <ul class="teams-list">
@@ -233,6 +241,19 @@ export class MatchupsViewElement extends View<Model, Msg> {
       overflow-y: auto;
     }
 
+    .page-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      align-items: start;
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+    }
+
     h1 {
       color: var(--color-heading);
       font-size: 2.5rem;
@@ -250,7 +271,7 @@ export class MatchupsViewElement extends View<Model, Msg> {
     .filter-controls {
       display: flex;
       gap: 1rem;
-      margin-bottom: 2rem;
+      margin-bottom: 0;
     }
 
     .filter-controls button {
@@ -276,10 +297,24 @@ export class MatchupsViewElement extends View<Model, Msg> {
       color: white;
     }
 
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .fantasy-image {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 8px;
+    }
+
     .teams-list {
       list-style: none;
       padding-left: 0;
       color: var(--color-text);
+      margin: 0;
     }
 
     .team-item {
@@ -352,18 +387,26 @@ export class MatchupsViewElement extends View<Model, Msg> {
 
     @media (max-width: 767px) {
       .content-wrapper {
-        grid-template-rows: auto 1fr;
+        grid-template-columns: repeat(4, 1fr);
       }
 
       aside.sidebar {
-        grid-column: span 4;
-        grid-row: 1;
+        grid-column: span 1;
+        padding: 1rem;
       }
 
       main {
-        grid-column: span 4;
-        grid-row: 2;
+        grid-column: span 3;
         padding: var(--spacing-lg, 1rem);
+      }
+
+      .page-header {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .image-container {
+        order: -1;
       }
 
       h1 {
@@ -376,6 +419,10 @@ export class MatchupsViewElement extends View<Model, Msg> {
 
       .team-item {
         font-size: 1rem;
+      }
+
+      .fantasy-image {
+        max-width: 100%;
       }
     }
   `;

@@ -57,7 +57,10 @@ export class HomeViewElement extends LitElement {
         </aside>
 
         <main>
-          <img src="/images/fantasy.png" style="width: 600px; margin-bottom: 2rem;">
+          <h1 class="welcome-heading">Welcome to Wide Receiver University!</h1>
+          <p class="welcome-subheading">Track, analyze, and compare the top Wide Receivers in Fantasy Football. Get real-time rankings, player stats, and matchup insights to dominate your league.</p>
+
+          <img src="/images/wrs.jpg" class="hero-image">
 
           <h1>
             <img src="/icons/trophy.svg" class="trophy-icon" alt="trophy">
@@ -158,7 +161,7 @@ export class HomeViewElement extends LitElement {
 
     main {
       grid-column: span 8;
-      padding: var(--spacing-xl, 1.5rem);
+      padding: 0 1.5rem 1.5rem 1.5rem;
       overflow-y: auto;
     }
 
@@ -167,6 +170,34 @@ export class HomeViewElement extends LitElement {
       display: flex;
       align-items: center;
       gap: 0.75rem;
+    }
+
+    .welcome-heading {
+      color: var(--color-heading);
+      font-size: 2.5rem;
+      margin: 0 auto 0.5rem auto;
+      text-align: center;
+      max-width: 800px;
+      display: block;
+      width: 100%;
+    }
+
+    .welcome-subheading {
+      color: #e0e0e0;
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 0 auto 2rem auto;
+      line-height: 1.6;
+      max-width: 800px;
+      display: block;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      display: block;
+      margin: 0 auto 1rem auto;
     }
 
     .trophy-icon {
@@ -192,17 +223,16 @@ export class HomeViewElement extends LitElement {
 
     @media (max-width: 767px) {
       .content-wrapper {
-        grid-template-rows: auto 1fr;
+        grid-template-columns: repeat(4, 1fr);
       }
 
       aside.sidebar {
-        grid-column: span 4;
-        grid-row: 1;
+        grid-column: span 1;
+        padding: 1rem;
       }
 
       main {
-        grid-column: span 4;
-        grid-row: 2;
+        grid-column: span 3;
         padding: var(--spacing-lg, 1rem);
       }
     }

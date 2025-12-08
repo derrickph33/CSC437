@@ -73,9 +73,15 @@ export class PlayersViewElement extends LitElement {
             </a>
           </div>
 
-          <ul class="player-list">
-            <player-list src="/api/players" sortBy="alphabetical"></player-list>
-          </ul>
+          <div class="content-grid">
+            <ul class="player-list">
+              <player-list src="/api/players" sortBy="alphabetical"></player-list>
+            </ul>
+
+            <div class="image-container">
+              <img src="/images/wru.png" class="wru-image" alt="Wide Receiver University">
+            </div>
+          </div>
         </main>
       </div>
     `;
@@ -215,9 +221,32 @@ export class PlayersViewElement extends LitElement {
       opacity: 0.9;
     }
 
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
     ul.player-list {
       list-style: none;
       padding-left: 0;
+      margin: 0;
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      position: sticky;
+      top: 1rem;
+    }
+
+    .wru-image {
+      width: 100%;
+      max-width: 350px;
+      height: auto;
+      border-radius: 8px;
     }
 
     @media (max-width: 1023px) {
@@ -232,17 +261,16 @@ export class PlayersViewElement extends LitElement {
 
     @media (max-width: 767px) {
       .content-wrapper {
-        grid-template-rows: auto 1fr;
+        grid-template-columns: repeat(4, 1fr);
       }
 
       aside.sidebar {
-        grid-column: span 4;
-        grid-row: 1;
+        grid-column: span 1;
+        padding: 1rem;
       }
 
       main {
-        grid-column: span 4;
-        grid-row: 2;
+        grid-column: span 3;
         padding: var(--spacing-lg, 1rem);
       }
 
@@ -262,6 +290,20 @@ export class PlayersViewElement extends LitElement {
 
       .add-button {
         text-align: center;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .image-container {
+        position: static;
+        order: -1;
+      }
+
+      .wru-image {
+        max-width: 100%;
       }
     }
   `;

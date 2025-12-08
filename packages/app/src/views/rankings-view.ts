@@ -434,17 +434,16 @@ export class RankingsViewElement extends View<Model, Msg> {
 
     @media (max-width: 767px) {
       .content-wrapper {
-        grid-template-rows: auto 1fr;
+        grid-template-columns: repeat(4, 1fr);
       }
 
       aside.sidebar {
-        grid-column: span 4;
-        grid-row: 1;
+        grid-column: span 1;
+        padding: 1rem;
       }
 
       main {
-        grid-column: span 4;
-        grid-row: 2;
+        grid-column: span 3;
         padding: var(--spacing-lg, 1rem);
       }
 

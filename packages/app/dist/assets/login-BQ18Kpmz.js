@@ -1,4 +1,4 @@
-import{b as c,i as u,x as p,r as f,c as m,n as h,d as b,H as g,a as y}from"./header-element-DiHYK0oZ.js";const v=c`
+import{b as c,i as u,x as p,r as f,c as m,n as h,d as b,H as g,a as y}from"./header-element-Ca3vyFbp.js";const v=c`
   h1, h2, h3, h4 {
     font-family: var(--font-family-display, sans-serif);
     line-height: var(--font-line-height-display, 1.2);
@@ -71,10 +71,10 @@ import{b as c,i as u,x as p,r as f,c as m,n as h,d as b,H as g,a as y}from"./hea
     border-radius: 4px;
     margin-top: 1rem;
   }
-`,k={styles:w};var S=Object.defineProperty,n=(a,o,t,i)=>{for(var e=void 0,s=a.length-1,l;s>=0;s--)(l=a[s])&&(e=l(o,t,e)||e);return e&&S(o,t,e),e};const d=class d extends u{constructor(){super(...arguments),this.formData={},this.redirect="/"}get canSubmit(){return!!(this.api&&this.formData.username&&this.formData.password)}render(){return p`
+`,k={styles:w};var S=Object.defineProperty,n=(a,r,t,i)=>{for(var e=void 0,s=a.length-1,l;s>=0;s--)(l=a[s])&&(e=l(r,t,e)||e);return e&&S(r,t,e),e};const d=class d extends u{constructor(){super(...arguments),this.formData={},this.redirect="/"}get canSubmit(){return!!(this.api&&this.formData.username&&this.formData.password)}render(){return p`
       <form
-        @change=${o=>this.handleChange(o)}
-        @submit=${o=>this.handleSubmit(o)}
+        @change=${r=>this.handleChange(r)}
+        @submit=${r=>this.handleSubmit(r)}
       >
         <slot></slot>
         <slot name="button">
@@ -86,4 +86,4 @@ import{b as c,i as u,x as p,r as f,c as m,n as h,d as b,H as g,a as y}from"./hea
         </slot>
         <p class="error">${this.error}</p>
       </form>
-    `}handleChange(o){const t=o.target,i=t?.name,e=t?.value,s=this.formData;switch(i){case"username":this.formData={...s,username:e};break;case"password":this.formData={...s,password:e};break}}handleSubmit(o){o.preventDefault(),this.canSubmit&&fetch(this?.api||"",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(this.formData)}).then(t=>{if(t.status!==200)throw"Login failed";return t.json()}).then(t=>{const{token:i}=t,e=new CustomEvent("auth:message",{bubbles:!0,composed:!0,detail:["auth/signin",{token:i,redirect:this.redirect}]});console.log("dispatching message",e),this.dispatchEvent(e)}).catch(t=>{console.log(t),this.error=t.toString()})}};d.styles=[f.styles,x.styles,k.styles];let r=d;n([m()],r.prototype,"formData");n([h()],r.prototype,"api");n([h()],r.prototype,"redirect");n([m()],r.prototype,"error");b({"mu-auth":y.Provider,"login-form":r,"header-element":g});document.body.addEventListener("lightmode:toggle",a=>{a.detail.checked?document.body.classList.add("light-mode"):document.body.classList.remove("light-mode")});
+    `}handleChange(r){const t=r.target,i=t?.name,e=t?.value,s=this.formData;switch(i){case"username":this.formData={...s,username:e};break;case"password":this.formData={...s,password:e};break}}handleSubmit(r){r.preventDefault(),this.canSubmit&&fetch(this?.api||"",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(this.formData)}).then(t=>{if(t.status!==200)throw"Login failed";return t.json()}).then(t=>{const{token:i}=t,e=new CustomEvent("auth:message",{bubbles:!0,composed:!0,detail:["auth/signin",{token:i,redirect:this.redirect}]});this.dispatchEvent(e)}).catch(t=>{this.error=t.toString()})}};d.styles=[f.styles,x.styles,k.styles];let o=d;n([m()],o.prototype,"formData");n([h()],o.prototype,"api");n([h()],o.prototype,"redirect");n([m()],o.prototype,"error");b({"mu-auth":y.Provider,"login-form":o,"header-element":g});document.body.addEventListener("lightmode:toggle",a=>{a.detail.checked?document.body.classList.add("light-mode"):document.body.classList.remove("light-mode")});

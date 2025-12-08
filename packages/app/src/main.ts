@@ -10,6 +10,7 @@ import { Msg } from "./messages";
 import { Model, init } from "./model";
 import update from "./update";
 import { HeaderElement } from "./components/header-element";
+import { FooterElement } from "./components/footer-element";
 import { PlayerCardElement } from "./components/player-card";
 import { PlayerItemElement } from "./components/player-item";
 import { PlayerListElement } from "./components/player-list-element";
@@ -99,6 +100,7 @@ define({
     }
   },
   "header-element": HeaderElement,
+  "footer-element": FooterElement,
   "player-card": PlayerCardElement,
   "player-item": PlayerItemElement,
   "player-list": PlayerListElement,
