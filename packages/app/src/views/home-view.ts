@@ -183,7 +183,7 @@ export class HomeViewElement extends LitElement {
     }
 
     .welcome-subheading {
-      color: #e0e0e0;
+      color: var(--color-text);
       font-size: 1.2rem;
       text-align: center;
       margin: 0 auto 2rem auto;

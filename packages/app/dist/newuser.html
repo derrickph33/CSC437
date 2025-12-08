@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Login - Wide Receiver University</title>
+  <title>Sign Up - Wide Receiver University</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles/reset.css" />
   <link rel="stylesheet" href="/styles/tokens.css" />
   <link rel="stylesheet" href="/styles/page.css" />
-  <script type="module" crossorigin src="/assets/login-DsBfzJ_7.js"></script>
+  <script type="module" crossorigin src="/assets/newuser-BiKnGAdr.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/header-element-Ca3vyFbp.js">
   <link rel="modulepreload" crossorigin href="/assets/login.css-CXP7EpDp.js">
 </head>
@@ -19,8 +19,8 @@
     <header-element></header-element>
 
     <main style="max-width: 500px; margin: 0 auto; padding: 2rem;">
-      <h2 style="color: var(--color-text); text-align: center; margin-bottom: 2rem; font-size: 2rem;">User Login</h2>
-      <login-form api="/auth/login">
+      <h2 style="color: var(--color-text); text-align: center; margin-bottom: 2rem; font-size: 2rem;">Sign Up</h2>
+      <registration-form api="/auth/register">
         <label>
           <span>Username:</span>
           <input name="username" autocomplete="off" />
@@ -29,10 +29,10 @@
           <span>Password:</span>
           <input type="password" name="password" />
         </label>
-      </login-form>
+      </registration-form>
       <p style="text-align: center; margin-top: 1.5rem; color: var(--color-text);">
-        Or did you want to
-        <a href="newuser.html" style="color: var(--color-background-header); text-decoration: none; font-weight: 600;">Sign up as a new user</a>?
+        Already have an account?
+        <a href="login.html" style="color: var(--color-background-header); text-decoration: none; font-weight: 600;">Login here</a>
       </p>
     </main>
 

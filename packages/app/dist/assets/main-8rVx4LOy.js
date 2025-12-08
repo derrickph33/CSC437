@@ -378,7 +378,7 @@ import{a as h,i as v,x as o,b as d,r as A,n as l,h as p,V as u,c as J,d as O,f a
     }
 
     .welcome-subheading {
-      color: #e0e0e0;
+      color: var(--color-text);
       font-size: 1.2rem;
       text-align: center;
       margin: 0 auto 2rem auto;
